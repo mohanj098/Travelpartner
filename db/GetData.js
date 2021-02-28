@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const GetData = async () => {
+const GetData = async (key) => {
     try {
-      const value = await AsyncStorage.getItem('user')
+      const value = await AsyncStorage.getItem(key)
       if(value !== null) {
         return value;
       }
@@ -10,6 +10,7 @@ const GetData = async () => {
         return null;
       }
     } catch(e) {
+      console.log('key1');
         console.log(e + "in getting data");
         return null;
     }
