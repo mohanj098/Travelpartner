@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import StoreData from '../db/StoreData';
+import StoreData from '../../db/StoreData';
 
 export default function Mainform(props) {
     const navigate=props.navigate
