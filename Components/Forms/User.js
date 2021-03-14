@@ -95,10 +95,13 @@ export default function User(props) {
 const styles = StyleSheet.create({
     usercontainer: {
         flex: 1,
+        width: '100%',
+        height: 520,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: 1,
+        borderRadius: 20,
+        borderWidth: 1,
     },
     usertop: {
         fontSize: 20,

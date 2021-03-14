@@ -11,7 +11,7 @@ export default function Display() {
     useEffect(() => {
         Getdata('trip').then(values=>{
             setData(JSON.parse(values).reverse())
-        })
+        }).catch();
     }, [Data])
 
     return (
@@ -20,10 +20,10 @@ export default function Display() {
             <FlatList style={styles.flat}
                 showsVerticalScrollIndicator={false}
                 data={Data}
-                keyExtractor={(item, index) => {index.toString()+item.title.From.toString()+item.title.To.toString()+item.title.month.toString()}}
-                renderItem={({ item }) => (
-                    <Card From={item.title.From} To={item.title.To} month={item.title.month} />
+                renderItem={({ item}) => (
+                    <Card key={item.month} From={item.title.From} To={item.title.To} month={item.title.month} />
                 )}
+                keyExtractor={(item, index) => {index.toString()+item.title.From.toString()+item.title.To.toString()+item.title.month.toString()}}
             />
         </View>
     )
