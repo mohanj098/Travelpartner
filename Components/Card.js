@@ -3,8 +3,12 @@ import { View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Card(props){
+
+    const onpress= () =>{
+        props.navigation.navigate("Mediator", {index: props.index});
+    }
     return(
-        <TouchableOpacity style={styles.cardcontainer}>
+        <TouchableOpacity style={styles.cardcontainer} onPress={onpress}>
             <View style={styles.cardtopview}>
                <Text numberOfLines={1} style={styles.cardtext}>{props.From}</Text> 
                <MaterialIcons style={styles.icon} name="compare-arrows" size={35} color="blue" />

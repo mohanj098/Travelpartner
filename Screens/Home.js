@@ -9,7 +9,7 @@ export default function Home({ navigation }) {
         <View style={styles.homecontainer}>
             <Header title="Home" />
             <Add add="trip" onPress={()=>{navigation.navigate("Trip")}}/>
-            <Display/>
+            <Display navigation={navigation}/>
             <StatusBar style="auto" />
         </View>
     )

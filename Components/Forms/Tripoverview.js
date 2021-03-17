@@ -94,8 +94,6 @@ const styles = StyleSheet.create({
         marginTop: 45,
         flex: 1,
         width: '100%',
-        borderColor: 'red',
-        borderWidth: 1,
     },
     tripinput: {
         textAlign: 'center',

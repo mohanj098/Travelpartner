@@ -4,8 +4,16 @@ import GetData from "./db/GetData";
 import User from "./Components/Forms/User";
 import Home from "./Screens/Home";
 import Trip from "./Screens/Trip";
+import Mediator from './Screens/Mediator';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { LogBox } from 'react-native';
+import Warning from "./WarningIgnore";
+
+
+
+LogBox.ignoreLogs(Warning);
+
 
 const Stack = createStackNavigator();
 
@@ -18,7 +26,7 @@ export default function App() {
   });
   return (
     <NavigationContainer style={styles.container}>
-      <Modal visible={show} animationType="slide" transparent={true}>
+      <Modal visible={false} animationType="slide" transparent={true}>
         <View style={styles.modal}>
           <User setshow={setshow} />
         </View>
@@ -34,6 +42,12 @@ export default function App() {
           component={Trip}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Mediator"
+          component={Mediator}
+          options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
       <StatusBar backgroundColor="#714db8" />
     </NavigationContainer>
