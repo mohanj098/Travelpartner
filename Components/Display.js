@@ -8,11 +8,15 @@ export default function Display({ navigation }) {
   const [Data, setData] = useState([]);
   useEffect(() => {
     Getdata("trip")
-      .then((values) => {
-        setData(JSON.parse(values).reverse());
+      .then((values) => JSON.parse(values))
+      .then((result) => {
+        if (result !== null) {
+          result.reverse();
+          setData(result);
+        }
       })
       .catch((e) => console.log(e));
-  }, [Data]);
+  });
 
   return (
     <View style={styles.displaycontainer}>

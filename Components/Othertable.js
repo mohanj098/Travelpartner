@@ -29,7 +29,7 @@ export default function Othertable({ data }) {
   return (
     <View style={styles.othertablecontainer}>
       <Text style={styles.othertabletop}>Other Expenses</Text>
-      <ScrollView>
+      <ScrollView style={{backgroundColor:'white'}}>
         <Table
           height={100}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}
