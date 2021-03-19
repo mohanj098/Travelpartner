@@ -32,7 +32,7 @@ export default function Display({ navigation }) {
           />
         )}
         keyExtractor={(item) => {
-          item.key;
+          return item.key.toString();
         }}
       />
     </View>

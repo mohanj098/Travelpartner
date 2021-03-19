@@ -31,7 +31,6 @@ const Reviewschema = yup.object({
 
 
 export default function Mainform(props) {
-  const navigate = props.navigate;
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.mainformcontainer}>
@@ -54,7 +53,7 @@ export default function Mainform(props) {
             pnr: "",
             remarks: "",
           }}
-          onSubmit={(values) => Addmain(values, props.showmain, 0)}
+          onSubmit={(values) => Addmain(values, props.showmain, props.index)}
           validationSchema={Reviewschema}
         >
           {({

@@ -24,7 +24,7 @@ export default function Others(props) {
         <Text style={styles.othertop}>Other Expenses</Text>
         <Formik
           initialValues={{ detail: "", amountpaid: "", receipt: "" }}
-          onSubmit={(values) => Addother(values, props.showother, 0)}
+          onSubmit={(values) => Addother(values, props.showother,props.index)}
           validationSchema={Reviewschema}
         >
           {({
