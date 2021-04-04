@@ -3,17 +3,24 @@ import Card from "./Card";
 import { Text, FlatList, StyleSheet, View, TextInput } from "react-native";
 import Getdata from "../db/GetData";
 import { useEffect } from "react";
+import { filter } from "lodash";
 
-export default function Display({ navigation}) {
+export default function Display({ navigation }) {
   const [Data, setData] = useState([]);
   const [query, setquery] = useState("");
+  const [fulldata, setfulldata] = useState([]);
 
-  const contains = (query) => {};
+  const contains = (indiv, query) => {
+    if (indiv.title.includes(query)) {
+      return true;
+    }
+    return false;
+  };
 
-  function handlequery(text) {
+  function handleSearch(text) {
     const formattedQuery = text.toLowerCase();
-    const filteredData = filter(Data, (que) => {
-      return contains(formattedQuery);
+    const filteredData = filter(fulldata, (indiv) => {
+      return contains(indiv, formattedQuery);
     });
     setData(filteredData);
     setquery(text);
@@ -26,9 +33,8 @@ export default function Display({ navigation}) {
           margin: 10,
           backgroundColor: "white",
           borderRadius: 10,
-          minWidth: "80%",
-          maxWidth: "80%",
-          height: 45,
+          height: 50,
+          minWidth: 350,
         }}
       >
         <TextInput
@@ -38,33 +44,42 @@ export default function Display({ navigation}) {
             height: 35,
             textAlign: "center",
             fontSize: 15,
+            borderColor: "black",
+            padding: 0,
+            borderWidth: 1,
           }}
+          autoCapitalize="none"
+          autoCorrect={false}
           value={query}
-          onChangeText={(querytext) => handlequery(querytext)}
+          onChangeText={(querytext) => handleSearch(querytext)}
           placeholder="SEARCH"
         />
       </View>
     );
   }
 
-  useEffect(() => {
+  function helper() {
     Getdata("trip")
       .then((values) => JSON.parse(values))
       .then((result) => {
         if (result !== null) {
           result.reverse();
           setData(result);
+          setfulldata(result);
         } else {
           setData([]);
         }
       })
       .catch((e) => console.log(e));
-  });
+  }
+
+  useEffect(() => {
+    helper();
+  }, []);
 
   return (
     <View style={styles.displaycontainer}>
-      {/* <Text style={styles.Displayheading}>PAST Trips</Text> */}
-      <Searchbar />
+      <Searchbar/>
       <FlatList
         style={styles.flat}
         showsVerticalScrollIndicator={false}
