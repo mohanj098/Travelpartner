@@ -1,35 +1,62 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Display from '../Components/Display';
-import Add from '../Components/Add';
-import { View, StatusBar, StyleSheet, Text } from 'react-native';
+import React from "react";
+import Header from "../Components/Header";
+import Display from "../Components/Display";
+import Add from "../Components/Add";
+import { View, StatusBar, StyleSheet, Text, Button } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-export default function Home({ navigation }) {
-    return (
-        <View style={styles.homecontainer}>
-            <Header title="Home" />
-            <Add add="trip" onPress={()=>{navigation.navigate("Trip")}}/>
-            <Display navigation={navigation}/>
-            <StatusBar style="auto" />
-        </View>
-    )
+const Drawer = createDrawerNavigator();
 
+function Main({ navigation }) {
+  return (
+    <View style={styles.homecontainer}>
+      <Header
+        title="Home"
+        button={true}
+        onPress={() => navigation.toggleDrawer()}
+      />
+      <Add
+        add="trip"
+        onPress={() => {
+          navigation.navigate("Trip");
+        }}
+      />
+      <Display navigation={navigation} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+export default function Home() {
+  return (
+    <Drawer.Navigator
+      drawerContentOptions={{
+        activeTintColor: "#5f38ab",
+        activeBackgroundColor: "#fad9f3",
+        itemStyle: { marginVertical: 5 },
+        labelStyle:{fontWeight: "bold", fontSize: 16,}
+      }}
+      drawerStyle={{
+        backgroundColor: "#d5def5",
+      }}
+    >
+      <Drawer.Screen name="Home" component={Main} />
+      {/* <Drawer.Screen name="Drawer" component={sideDrawer} /> */}
+    </Drawer.Navigator>
+  );
 }
 
 const styles = StyleSheet.create({
-    homecontainer: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#d5def5',
-        width: '100%',
-        overflow: 'scroll'
-
-    },
-    cardcontainer: {
-        width: '100%',
-        flex: 1,
-        alignItems: 'center',
-    },
-    
-
-})
+  homecontainer: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#d5def5",
+    width: "100%",
+    overflow: "scroll",
+  },
+  cardcontainer: {
+    width: "100%",
+    flex: 1,
+    alignItems: "center",
+  },
+});

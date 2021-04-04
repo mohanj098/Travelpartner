@@ -10,7 +10,7 @@ export default function Mediate({ showmain, showother, data }) {
   const { width, height } = Dimensions.get("window");
   return (
     <View style={styles.mediatorcontainer}>
-      <Header title={data.title} />
+      <Header title={data.title} button={false}/>
       <ScrollView
         style={{ flex: 1 }}
         horizontal={true}
