@@ -4,7 +4,7 @@ import {StyleSheet, View, Text} from  'react-native';
 export default function Header(props){
     return(
         <View style={styles.header}>
-            <Text style={styles.title}>{props.title}</Text>
+            <Text numberOfLines={1} style={styles.title}>{props.title}</Text>
         </View>
     )
 }
@@ -20,8 +20,9 @@ const styles=StyleSheet.create({
     },
     title:{
         fontSize:25,
+        marginHorizontal: 15,
         margin:'auto',
-        textTransform:'uppercase',
+        textTransform:'capitalize',
         color:'white'
 
     }

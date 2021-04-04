@@ -10,7 +10,7 @@ export default function Mediate({ showmain, showother, data }) {
   const { width, height } = Dimensions.get("window");
   return (
     <View style={styles.mediatorcontainer}>
-      <Header title="Your trip" />
+      <Header title={data.title} />
       <ScrollView
         style={{ flex: 1 }}
         horizontal={true}
@@ -18,11 +18,11 @@ export default function Mediate({ showmain, showother, data }) {
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={{ width, height}}>
-          <Othertable data={data} />
-        </View>
         <View style={{ width, height }}>
           <Maintable data={data}/>
+        </View>
+        <View style={{ width, height}}>
+          <Othertable data={data} />
         </View>
       </ScrollView>
       <Action showmain={showmain} showother={showother} />
