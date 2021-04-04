@@ -5,7 +5,6 @@ import Mainform from "../Components/Forms/Mainform";
 import Otherform from "../Components/Forms/Others";
 import Middle from "../Components/Mediator";
 import { Modal, StyleSheet, View, Text, ActivityIndicator, Keyboard } from "react-native";
-import { render } from "react-dom";
 
 export default function Mediator({ navigation, route }) {
   const { index } = route.params;

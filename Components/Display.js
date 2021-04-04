@@ -1,11 +1,52 @@
 import React, { useState } from "react";
 import Card from "./Card";
-import { Text, FlatList, StyleSheet, View } from "react-native";
+import { Text, FlatList, StyleSheet, View, TextInput } from "react-native";
 import Getdata from "../db/GetData";
 import { useEffect } from "react";
 
-export default function Display({ navigation }) {
+export default function Display({ navigation}) {
   const [Data, setData] = useState([]);
+  const [query, setquery] = useState("");
+
+  const contains = (query) => {};
+
+  function handlequery(text) {
+    const formattedQuery = text.toLowerCase();
+    const filteredData = filter(Data, (que) => {
+      return contains(formattedQuery);
+    });
+    setData(filteredData);
+    setquery(text);
+  }
+
+  function Searchbar() {
+    return (
+      <View
+        style={{
+          margin: 10,
+          backgroundColor: "white",
+          borderRadius: 10,
+          minWidth: "80%",
+          maxWidth: "80%",
+          height: 45,
+        }}
+      >
+        <TextInput
+          style={{
+            backgroundColor: "white",
+            margin: 5,
+            height: 35,
+            textAlign: "center",
+            fontSize: 15,
+          }}
+          value={query}
+          onChangeText={(querytext) => handlequery(querytext)}
+          placeholder="SEARCH"
+        />
+      </View>
+    );
+  }
+
   useEffect(() => {
     Getdata("trip")
       .then((values) => JSON.parse(values))
@@ -13,6 +54,8 @@ export default function Display({ navigation }) {
         if (result !== null) {
           result.reverse();
           setData(result);
+        } else {
+          setData([]);
         }
       })
       .catch((e) => console.log(e));
@@ -20,7 +63,8 @@ export default function Display({ navigation }) {
 
   return (
     <View style={styles.displaycontainer}>
-      <Text style={styles.Displayheading}>PAST Trips</Text>
+      {/* <Text style={styles.Displayheading}>PAST Trips</Text> */}
+      <Searchbar />
       <FlatList
         style={styles.flat}
         showsVerticalScrollIndicator={false}
@@ -29,9 +73,7 @@ export default function Display({ navigation }) {
           <Card
             key={item.key}
             index={item.key}
-            From={item.title.From}
-            To={item.title.To}
-            month={item.title.month}
+            title={item.title}
             navigation={navigation}
           />
         )}

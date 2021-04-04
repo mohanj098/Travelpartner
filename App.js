@@ -26,7 +26,7 @@ export default function App() {
   });
   return (
     <NavigationContainer style={styles.container}>
-      <Modal visible={false} animationType="slide" transparent={true}>
+      <Modal visible={show} animationType="slide" transparent={true}>
         <View style={styles.modal}>
           <User setshow={setshow} />
         </View>

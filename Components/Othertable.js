@@ -29,16 +29,20 @@ export default function Othertable({ data }) {
   return (
     <View style={styles.othertablecontainer}>
       <Text style={styles.othertabletop}>Other Expenses</Text>
-      <ScrollView style={{backgroundColor:'white'}}>
+      <ScrollView>
         <Table
-          height={100}
+          style={{
+            backgroundColor: "white",
+            width: "90%",
+            marginHorizontal: "5%",
+          }}
+          height={200}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}
         >
           <Row
             data={tablehead}
             widthArr={[120, 120, 130]}
             height={35}
-            style={styles.otherrowhead}
             textStyle={styles.otherheadtext}
           />
           <Rows
@@ -56,10 +60,7 @@ const styles = StyleSheet.create({
   othertablecontainer: {
     marginTop: 55,
     borderColor: "grey",
-    height: 200,
-  },
-  otherrowhead: {
-    borderBottomWidth: 2,
+    height: "70%",
   },
   otherheadtext: {
     textTransform: "uppercase",
