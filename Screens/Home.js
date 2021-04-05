@@ -4,6 +4,8 @@ import Display from "../Components/Display";
 import Add from "../Components/Add";
 import { View, StatusBar, StyleSheet, Text, Button } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import Profile from "./Profile";
+import { useState } from "react/cjs/react.development";
 
 const Drawer = createDrawerNavigator();
 
@@ -41,7 +43,7 @@ export default function Home() {
       }}
     >
       <Drawer.Screen name="Home" component={Main} />
-      {/* <Drawer.Screen name="Drawer" component={sideDrawer} /> */}
+      <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );
 }

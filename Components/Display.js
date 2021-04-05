@@ -4,11 +4,13 @@ import { Text, FlatList, StyleSheet, View, TextInput } from "react-native";
 import Getdata from "../db/GetData";
 import { useEffect } from "react";
 import { filter } from "lodash";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Display({ navigation }) {
   const [Data, setData] = useState([]);
   const [query, setquery] = useState("");
   const [fulldata, setfulldata] = useState([]);
+  const isFocused = useIsFocused()
 
   const contains = (indiv, query) => {
     if (indiv.title.includes(query)) {
@@ -44,9 +46,7 @@ export default function Display({ navigation }) {
             height: 35,
             textAlign: "center",
             fontSize: 15,
-            borderColor: "black",
             padding: 0,
-            borderWidth: 1,
           }}
           autoCapitalize="none"
           autoCorrect={false}
@@ -75,7 +75,8 @@ export default function Display({ navigation }) {
 
   useEffect(() => {
     helper();
-  }, []);
+  }, [isFocused]);
+
 
   return (
     <View style={styles.displaycontainer}>

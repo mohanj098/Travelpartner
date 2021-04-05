@@ -14,18 +14,19 @@ export default function Header(props) {
             onPress={props.onPress}
           />
         </View>
-        {/* <Text
+        <Text
           style={{
             textAlign: "center",
-            fontSize: 30,
+            fontSize: 25,
             color: "white",
             marginLeft: 20,
             fontWeight: 'bold',
+            textTransform: "uppercase",
 
           }}
         >
-          HOME
-        </Text> */}
+          {props.title}
+        </Text>
       </View>
     );
   } else {
@@ -52,8 +53,9 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginHorizontal: 15,
     margin: "auto",
-    textTransform: "capitalize",
+    textTransform: "uppercase",
     color: "white",
+    fontWeight: "bold"
   },
   button: {
     flexDirection: "row",

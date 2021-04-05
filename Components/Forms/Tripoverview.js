@@ -22,7 +22,7 @@ const SendtoTrip = async (values) => {
   }
 };
 
-export default function Tripoverview({ navigation }) {
+export default function Tripoverview({navigation }) {
   return (
     <KeyboardAwareScrollView
       showsVerticalScrollIndicator={false}
@@ -32,7 +32,7 @@ export default function Tripoverview({ navigation }) {
         initialValues={{ title: "" }}
         onSubmit={(values) => {
           SendtoTrip(values)
-            .then(navigation.navigate("Home"))
+            .then(()=>{navigation.navigate("Home")})
             .catch((e) => {
               console.log(e);
             });
