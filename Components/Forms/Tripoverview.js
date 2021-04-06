@@ -63,7 +63,7 @@ export default function Tripoverview({navigation }) {
                 color="green"
                 marginTop={17}
                 onPress={handleSubmit}
-                title="Submit"
+                title="Save"
               />
             </View>
           </View>

@@ -7,7 +7,7 @@ export default function Card(props) {
     props.navigation.navigate("Mediator", { index: props.index });
   };
   return (
-    <TouchableOpacity style={styles.cardcontainer} onPress={onpress}>
+    <TouchableOpacity style={styles.cardcontainer} onPress={onpress} activeOpacity={0.8}>
       <View style={styles.total}>
         <View style={styles.iconview}>
         <Entypo name="aircraft-take-off" size={50} color='#5f38ab' />

@@ -22,7 +22,7 @@ export default function Mediator({ navigation, route }) {
       setload(false);
     }).catch(e=>console.log(e))
     .catch(e=>{console.log(e)})
-  }, [])
+  }, [showmain, showother])
 
 
   if (!load) {

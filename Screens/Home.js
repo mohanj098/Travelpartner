@@ -5,7 +5,7 @@ import Add from "../Components/Add";
 import { View, StatusBar, StyleSheet, Text, Button } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from "./Profile";
-import { useState } from "react/cjs/react.development";
+import Backup from "./Backup"
 
 const Drawer = createDrawerNavigator();
 
@@ -44,6 +44,7 @@ export default function Home() {
     >
       <Drawer.Screen name="Home" component={Main} />
       <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Backup and Restore" component={Backup} />
     </Drawer.Navigator>
   );
 }
