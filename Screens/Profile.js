@@ -151,7 +151,5 @@ const styles = StyleSheet.create({
   },
   modal: {
     flex: 1,
-    margin: 10,
-    marginVertical: "15%",
   },
 });

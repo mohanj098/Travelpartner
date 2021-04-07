@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Formik, getIn } from "formik";
+import { Formik} from "formik";
 import * as yup from "yup";
 import Addmain from "../../db/Addmain";
 
@@ -34,7 +34,6 @@ export default function Mainform(props) {
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.mainformcontainer}>
-        <Text style={styles.mainformtop}>Travel details</Text>
         <Formik
           initialValues={{
             departure: {
@@ -117,6 +116,7 @@ export default function Mainform(props) {
                   />
                 </View>
               </View>
+              <Text>Mode of Travel</Text>
               <TextInput
                 style={styles.mainforminput}
                 placeholder="Mode of Travel"
@@ -127,6 +127,7 @@ export default function Mainform(props) {
               <Text style={styles.mainforerror}>
                 {touched.mode && errors.mode}
               </Text>
+              <Text>Distance in km</Text>
               <TextInput
                 style={styles.mainforminput}
                 placeholder="Distance in km"
@@ -137,6 +138,7 @@ export default function Mainform(props) {
               <Text style={styles.mainforerror}>
                 {touched.distance && errors.distance}
               </Text>
+              <Text>Fare</Text>
               <TextInput
                 style={styles.mainforminput}
                 placeholder="Fare"
@@ -147,6 +149,7 @@ export default function Mainform(props) {
               <Text style={styles.mainforerror}>
                 {touched.fare && errors.fare}
               </Text>
+              <Text>PNR/Ticket Number</Text>
               <TextInput
                 style={styles.mainforminput}
                 placeholder="PNR number/Ticket number"
@@ -157,6 +160,7 @@ export default function Mainform(props) {
               <Text style={styles.mainforerror}>
                 {touched.pnr && errors.pnr}
               </Text>
+              <Text>Remarks(is any)</Text>
               <TextInput
                 style={styles.mainforminput}
                 placeholder="Any Remarks"
@@ -201,7 +205,7 @@ const styles = StyleSheet.create({
     height: 40,
     textAlign: "center",
     fontSize: 20,
-    marginVertical: 8,
+    marginVertical: 4,
   },
   mainformerror: {
     color: "red",
