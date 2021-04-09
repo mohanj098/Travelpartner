@@ -88,7 +88,7 @@ export default function User(props) {
                 dept: values.dept.trim(),
                 desig: values.desig.trim(),
                 pay: values.pay.trim(),
-                account: values.account.trim()
+                account: values.account.trim(),
               };
               StoreData("user", finalvalues).then(props.setshow(false));
             }}
@@ -112,9 +112,8 @@ export default function User(props) {
                     placeholder="Name"
                     onChangeText={handleChange("name")}
                     onBlur={() => {
-                      handleBlur("name");
                       setnamea(false);
-                      values.name.trim();
+                      touched.name = true;
                     }}
                     value={values.name}
                     onFocus={() => {
@@ -134,7 +133,7 @@ export default function User(props) {
                     placeholder="Employee Code"
                     onChangeText={handleChange("ecode")}
                     onBlur={() => {
-                      handleBlur("ecode");
+                      touched.ecode = true;
                       setcodea(false);
                     }}
                     value={values.ecode}
@@ -155,7 +154,7 @@ export default function User(props) {
                     placeholder="Department/Center"
                     onChangeText={handleChange("dept")}
                     onBlur={() => {
-                      handleBlur("dept");
+                      touched.dept = true;
                       setdepa(false);
                     }}
                     value={values.dept}
@@ -176,7 +175,7 @@ export default function User(props) {
                     placeholder="Designation"
                     onChangeText={handleChange("desig")}
                     onBlur={() => {
-                      handleBlur("desig");
+                      touched.desig = true;
                       setdesa(false);
                     }}
                     value={values.desig}
@@ -197,7 +196,7 @@ export default function User(props) {
                     placeholder="Basic Pay with grade pay"
                     onChangeText={handleChange("pay")}
                     onBlur={() => {
-                      handleBlur("pay");
+                      touched.pay = true;
                       setpaya(false);
                     }}
                     value={values.pay}
@@ -219,7 +218,7 @@ export default function User(props) {
                     placeholder="Bank Account number"
                     onChangeText={handleChange("account")}
                     onBlur={() => {
-                      handleBlur("account");
+                      touched.account = true;
                       setaccaa(false);
                     }}
                     value={values.account}

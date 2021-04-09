@@ -1,30 +1,42 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Addother from "../../db/Addother";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useState } from "react";
 
 const Reviewschema = yup.object({
   detail: yup.string().required(),
   amountpaid: yup
-  .number()
-  .typeError("Must be a Number")
-  .positive("Invalid, Only positive numbers are allowed")
-  .required("Amount Paid is required"),
-  receipt: yup.string().required()
-
-})
+    .number()
+    .typeError("Must be a Number")
+    .positive("Invalid, Only positive numbers are allowed")
+    .required("Amount Paid is required"),
+});
 
 export default function Others(props) {
-  const navigate=props.navigate
+  const navigate = props.navigate;
+  const [acdet, setdet] = useState(false);
+  const [acpaid, setpaida] = useState(false);
+  const [acrec, setres] = useState(false);
+  const [accard, setcard] = useState(false);
+  const [acstore, setstore] = useState(false);
+
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.othercontainer}>
-        <Text style={styles.othertop}>Other Expenses</Text>
+        <Text style={styles.othertop}>Other Expense</Text>
         <Formik
-          initialValues={{ detail: "", amountpaid: "", receipt: "" }}
-          onSubmit={(values) => Addother(values, props.showother,props.index)}
+          initialValues={{
+            detail: "",
+            amountpaid: "",
+            receipt: "",
+            payment: "",
+            stored: "",
+          }}
+          onSubmit={(values) => Addother(values, props.showother, props.index)}
           validationSchema={Reviewschema}
         >
           {({
@@ -34,39 +46,129 @@ export default function Others(props) {
             values,
             errors,
             touched,
+            setFieldTouched
           }) => (
             <View style={styles.otherform}>
-              <TextInput
-                style={styles.otherinput}
-                placeholder="Enter Details"
-                onChangeText={handleChange("detail")}
-                value={values.detail}
-                onBlur={handleBlur("detail")}
-              />
-              <Text style={styles.otherforerror}>
-                {touched.detail && errors.detail}
-              </Text>
-              <TextInput
-                style={styles.otherinput}
-                placeholder="Amountpaid"
-                onChangeText={handleChange("amountpaid")}
-                value={values.amountpaid}
-                onBlur={handleBlur("amountpaid")}
-              />
-              <Text style={styles.otherforerror}>
-                {touched.amountpaid && errors.amountpaid}
-              </Text>
-              <TextInput
-                style={styles.otherinput}
-                placeholder="receipt details"
-                onChangeText={handleChange("receipt")}
-                value={values.receipt}
-                onBlur={handleBlur("receipt")}
-              />
-              <Text style={styles.otherforerror}>
-                {touched.receipt && errors.receipt}
-              </Text>
-              <Button onPress={handleSubmit} color="green" title="Submit" />
+              <View style={styles.box}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.info}>Details</Text>
+                  <Text style={{ color: "red" }}>*</Text>
+                </View>
+                <TextInput
+                  style={
+                    acdet === true ? styles.otherinputactive : styles.otherinput
+                  }
+                  placeholder="Enter Details"
+                  onChangeText={handleChange("detail")}
+                  value={values.detail}
+                  onBlur={() => {
+                    setFieldTouched("detail", true);
+                    setdet(false);
+                  }}
+                  onFocus={() => {
+                    setdet(true);
+                  }}
+                />
+                <Text style={styles.otherforerror}>
+                  {touched.detail && errors.detail}
+                </Text>
+              </View>
+              <View style={styles.box}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.info}>Amount Paid(in rupees)</Text>
+                  <Text style={{ color: "red" }}>*</Text>
+                </View>
+                <TextInput
+                  style={
+                    acpaid === true
+                      ? styles.otherinputactive
+                      : styles.otherinput
+                  }
+                  placeholder="Amountpaid"
+                  onChangeText={handleChange("amountpaid")}
+                  value={values.amountpaid}
+                  onBlur={() => {
+                    setFieldTouched("amountpaid", true);
+                    setpaida(false);
+                  }}
+                  onFocus={() => {
+                    setpaida(true);
+                  }}
+                />
+                <Text style={styles.otherforerror}>
+                  {touched.amountpaid && errors.amountpaid}
+                </Text>
+              </View>
+              <View style={styles.box}>
+                <Text style={styles.info}>Receipt Details(to be shared)</Text>
+                <TextInput
+                  style={
+                    acrec === true ? styles.otherinputactive : styles.otherinput
+                  }
+                  onChangeText={handleChange("receipt")}
+                  value={values.receipt}
+                  onBlur={() => {
+                    setres(false);
+                  }}
+                  onFocus={() => {
+                    setres(true);
+                  }}
+                />
+                <Text style={styles.otherforerror}>
+                  {touched.receipt && errors.receipt}
+                </Text>
+              </View>
+              <View style={styles.box}>
+                <Text style={styles.info}>
+                  Payment Details(for your refrence only)
+                </Text>
+                <TextInput
+                  style={
+                    accard === true
+                      ? styles.otherinputactive
+                      : styles.otherinput
+                  }
+                  onChangeText={handleChange("payment")}
+                  placeholder="e.g. Card used for payment"
+                  value={values.payment}
+                  onBlur={() => {
+                    setcard(false);
+                  }}
+                  onFocus={() => {
+                    setcard(true);
+                  }}
+                />
+                <Text style={styles.otherforerror}>
+                  {touched.payment && errors.payment}
+                </Text>
+              </View>
+
+              <View style={styles.box}>
+                <Text style={styles.info}>
+                  Receipt Details(for your refrence only)
+                </Text>
+                <TextInput
+                  style={
+                    acstore === true
+                      ? styles.otherinputactive
+                      : styles.otherinput
+                  }
+                  placeholder="e.g. Receipt located at"
+                  onChangeText={handleChange("stored")}
+                  onBlur={() => {
+                    setstore(false);
+                  }}
+                  onFocus={() => {
+                    setstore(true);
+                  }}
+                />
+                <Text style={styles.otherforerror}>
+                  {touched.stored && errors.stored}
+                </Text>
+              </View>
+              <TouchableOpacity style={styles.button}>
+                <Text style={{ color: "white" }}>SAVE</Text>
+              </TouchableOpacity>
             </View>
           )}
         </Formik>
@@ -85,25 +187,51 @@ const styles = StyleSheet.create({
   },
   othertop: {
     fontSize: 25,
-    marginTop: 40,
+    marginTop: 20,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   otherform: {
-    marginTop: 60,
-    width: "90%",
+    marginTop: 30,
+    width: "80%",
   },
   otherinput: {
     borderColor: "black",
     borderWidth: 1,
-    marginTop: 3,
     borderRadius: 5,
-    height: 40,
-    textAlign: "center",
-    fontSize: 20,
-    marginBottom: 3,
+    height: 35,
+    textAlign: "left",
+    justifyContent: "center",
+    fontSize: 15,
+    marginTop: 5,
+    paddingLeft: 10,
   },
-  otherforerror:{
+  otherinputactive: {
+    borderWidth: 2,
+    borderRadius: 5,
+    height: 35,
+    textAlign: "left",
+    justifyContent: "center",
+    fontSize: 15,
+    marginTop: 5,
+    paddingLeft: 10,
+    borderColor: "blue",
+  },
+  otherforerror: {
     color: "red",
-  }
+  },
+  box: {
+    margin: 5,
+  },
+  info: {
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "green",
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+  },
 });
