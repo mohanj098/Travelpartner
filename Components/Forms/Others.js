@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Addother from "../../db/Addother";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 
 const Reviewschema = yup.object({
@@ -36,7 +35,16 @@ export default function Others(props) {
             payment: "",
             stored: "",
           }}
-          onSubmit={(values) => Addother(values, props.showother, props.index)}
+          onSubmit={(values) => {
+            const finalvalue = {
+              detail: values.detail.trim(),
+              amountpaid: values.amountpaid.trim(),
+              receipt: values.receipt.trim(),
+              payment: values.payment.trim(),
+              stored: values.payment.trim(),
+            };
+            Addother(finalvalue, props.showother, props.index);
+          }}
           validationSchema={Reviewschema}
         >
           {({
@@ -46,7 +54,7 @@ export default function Others(props) {
             values,
             errors,
             touched,
-            setFieldTouched
+            setFieldTouched,
           }) => (
             <View style={styles.otherform}>
               <View style={styles.box}>
@@ -166,7 +174,11 @@ export default function Others(props) {
                   {touched.stored && errors.stored}
                 </Text>
               </View>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleSubmit}
+                activeOpacity={0.8}
+              >
                 <Text style={{ color: "white" }}>SAVE</Text>
               </TouchableOpacity>
             </View>
@@ -228,7 +240,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    backgroundColor: "green",
+    backgroundColor: "#129620",
     height: 35,
     justifyContent: "center",
     alignItems: "center",

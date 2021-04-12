@@ -12,6 +12,8 @@ export default function Mediator({ navigation, route }) {
   const [renderdata, setrender] = useState(null);
   const [showmain, setshowmain] = useState(false);
   const [showother, setshowother] = useState(false);
+  const [updateother, setupdateother] = useState(false);
+  const [updatemain, setupdatemain] = useState(false);
  
   useEffect(()=>{
     setload(true);

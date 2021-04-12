@@ -1,16 +1,17 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
-// import Getall from "../db/Getall";
 
-// function alldata(){
-//   Getall().then((result)=> console.log(result))
-//   .catch(e=>console.log(e));
-// }
+import Getall from "../db/Getall";
+
+function alldata(){
+  Getall().then((result)=> console.log(result))
+  .catch(e=>console.log(e));
+}
 
 export default function BackupButton() {
   return (
-    <TouchableOpacity style={styles.backupcontainer} activeOpacity={0.5}>
+    <TouchableOpacity style={styles.backupcontainer} activeOpacity={0.5} onPress={alldata}>
       <FontAwesome name="cloud-upload" size={40} color="black" />
       <Text> BACKUP</Text>
     </TouchableOpacity>

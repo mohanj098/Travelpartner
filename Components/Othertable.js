@@ -1,16 +1,24 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
 import {
   Table,
   TableWrapper,
   Row,
-  Rows,
-  Col,
+  Cell,
 } from "react-native-table-component";
 import { useEffect, useState } from "react/cjs/react.development";
 
 export default function Othertable({ data }) {
-  const tablehead = ["Details", "Amount Paid", "Receipt Details"];
+  const tablehead = [
+    "Details",
+    "Amount Paid",
+    "Receipt Details (to be shared)",
+    "Payment details",
+    "Recipt's Location",
+    "edit",
+  ];
+  const widtharr = [50, 50, 80, 60, 70, 38];
   const [rowdata, setrowdata] = useState([]);
   useEffect(() => {
     let rowdata0 = [];
@@ -21,10 +29,21 @@ export default function Othertable({ data }) {
       rowdata1.push(other[i].detail);
       rowdata1.push(other[i].amountpaid);
       rowdata1.push(other[i].receipt);
+      rowdata1.push(other[i].payment);
+      rowdata1.push(other[i].stored);
+      rowdata1.push("");
       rowdata0.push(rowdata1);
     }
     setrowdata(rowdata0);
   }, []);
+
+  const editbutton = (data, index) => {
+    return (
+      <TouchableOpacity style={styles.editbutton}>
+        <MaterialIcons name="edit" size={20} color="#5f38ab" />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.othertablecontainer}>
@@ -33,23 +52,31 @@ export default function Othertable({ data }) {
         <Table
           style={{
             backgroundColor: "white",
-            width: "90%",
-            marginHorizontal: "5%",
+            width: "85%",
+            marginHorizontal: "7%",
           }}
           height={200}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}
         >
           <Row
             data={tablehead}
-            widthArr={[120, 120, 130]}
-            height={35}
+            widthArr={widtharr}
+            height={40}
             textStyle={styles.otherheadtext}
           />
-          <Rows
-            widthArr={[120, 120, 130]}
-            data={rowdata}
-            textStyle={styles.othertext}
-          />
+          {rowdata.map((item, index) => (
+            <TableWrapper key={index} style={styles.row}>
+              {item.map((celldata, cellindex) => (
+                <Cell
+                  height={30}
+                  width={widtharr[cellindex]}
+                  key={cellindex}
+                  data={cellindex == 5 ? editbutton(celldata, index) : celldata}
+                  textStyle={styles.othertext}
+                />
+              ))}
+            </TableWrapper>
+          ))}
         </Table>
       </ScrollView>
     </View>
@@ -66,10 +93,12 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     textAlign: "center",
     fontWeight: "700",
+    fontSize: 10,
   },
   othertext: {
     textAlign: "center",
-    fontWeight: "300",
+    fontWeight: "600",
+    fontSize: 13,
   },
   othertabletop: {
     textAlign: "center",
@@ -78,4 +107,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
   },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "white",
+  },
+  editbutton:{
+    justifyContent: "center",
+    alignItems: "center",
+
+  }
 });
