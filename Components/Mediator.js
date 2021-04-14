@@ -6,7 +6,7 @@ import Othertable from "./Othertable.js";
 import { ScrollView } from "react-native-gesture-handler";
 import Maintable from "./Maintable";
 
-export default function Mediate({ showmain, showother, data }) {
+export default function Mediate({ showmain, showother, data, index, extra, setextra}) {
   const { width, height } = Dimensions.get("window");
   return (
     <View style={styles.mediatorcontainer}>
@@ -19,10 +19,10 @@ export default function Mediate({ showmain, showother, data }) {
         showsHorizontalScrollIndicator={false}
       >
         <View style={{ width, height }}>
-          <Maintable data={data}/>
+          <Maintable data={data} index={index} />
         </View>
         <View style={{ width, height}}>
-          <Othertable data={data} />
+          <Othertable data={data} index={index} extra={extra} setextra={setextra}/>
         </View>
       </ScrollView>
       <Action showmain={showmain} showother={showother} />

@@ -1,15 +1,19 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
 import {
-  Table,
-  TableWrapper,
-  Row,
-  Cell,
-} from "react-native-table-component";
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
+import { set } from "react-native-reanimated";
+import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import { useEffect, useState } from "react/cjs/react.development";
+import Updateform from "./Forms/Updateothers";
 
-export default function Othertable({ data }) {
+export default function Othertable({ data, index, extra, setextra }) {
   const tablehead = [
     "Details",
     "Amount Paid",
@@ -20,6 +24,8 @@ export default function Othertable({ data }) {
   ];
   const widtharr = [50, 50, 80, 60, 70, 38];
   const [rowdata, setrowdata] = useState([]);
+  const [update, setupdate] = useState([false, null, null]);
+  //show, index, data
   useEffect(() => {
     let rowdata0 = [];
     const other = data.other;
@@ -37,9 +43,14 @@ export default function Othertable({ data }) {
     setrowdata(rowdata0);
   }, []);
 
-  const editbutton = (data, index) => {
+  const editbutton = (data, subindex) => {
     return (
-      <TouchableOpacity style={styles.editbutton}>
+      <TouchableOpacity
+        style={styles.editbutton}
+        onPress={() => {
+          setupdate([true, subindex, rowdata[subindex]]);
+        }}
+      >
         <MaterialIcons name="edit" size={20} color="#5f38ab" />
       </TouchableOpacity>
     );
@@ -47,6 +58,23 @@ export default function Othertable({ data }) {
 
   return (
     <View style={styles.othertablecontainer}>
+      <Modal
+        visible={update[0]}
+        animationType="slide"
+        transparent={false}
+        onRequestClose={() => setupdate([false, null, null])}
+      >
+        <View style={styles.modal}>
+          <Updateform
+            index={index}
+            subindex={update[1]}
+            data={update[2]}
+            setupdate={setupdate}
+            extra={extra}
+            setextra={setextra}
+          />
+        </View>
+      </Modal>
       <Text style={styles.othertabletop}>Other Expenses</Text>
       <ScrollView>
         <Table
@@ -64,14 +92,16 @@ export default function Othertable({ data }) {
             height={40}
             textStyle={styles.otherheadtext}
           />
-          {rowdata.map((item, index) => (
-            <TableWrapper key={index} style={styles.row}>
+          {rowdata.map((item, index1) => (
+            <TableWrapper key={index1} style={styles.row}>
               {item.map((celldata, cellindex) => (
                 <Cell
                   height={30}
                   width={widtharr[cellindex]}
                   key={cellindex}
-                  data={cellindex == 5 ? editbutton(celldata, index) : celldata}
+                  data={
+                    cellindex == 5 ? editbutton(celldata, index1) : celldata
+                  }
                   textStyle={styles.othertext}
                 />
               ))}
@@ -112,9 +142,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "white",
   },
-  editbutton:{
+  editbutton: {
     justifyContent: "center",
     alignItems: "center",
-
-  }
+  },
 });

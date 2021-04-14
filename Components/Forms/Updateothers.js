@@ -1,10 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Addother from "../../db/Addother";
 import { useState } from "react";
+import Getdata from "../../db/GetData";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Reviewschema = yup.object({
   detail: yup.string().required(),
@@ -16,7 +23,12 @@ const Reviewschema = yup.object({
 });
 
 export default function Others(props) {
-  const navigate = props.navigate;
+  const index = props.index;
+  const subindex = props.subindex;
+  const indata = props.data;
+  const setupdate= props.setupdate;
+  const extra=props.extra;
+  const setextra=props.setextra;
   const [acdet, setdet] = useState(false);
   const [acpaid, setpaida] = useState(false);
   const [acrec, setres] = useState(false);
@@ -29,11 +41,11 @@ export default function Others(props) {
         <Text style={styles.othertop}>Other Expense</Text>
         <Formik
           initialValues={{
-            detail: "",
-            amountpaid: "",
-            receipt: "",
-            payment: "",
-            stored: "",
+            detail: indata[0],
+            amountpaid: indata[1],
+            receipt: indata[2],
+            payment: indata[3],
+            stored: indata[4],
           }}
           onSubmit={(values) => {
             const finalvalue = {
@@ -43,12 +55,22 @@ export default function Others(props) {
               payment: values.payment.trim(),
               stored: values.stored.trim(),
             };
-            Addother(finalvalue, props.showother, props.index);
+            Getdata("trip")
+              .then((value) => JSON.parse(value))
+              .then((result) => {
+                var value=result;
+                value[index].other[subindex]=finalvalue;
+                AsyncStorage.setItem('trip', JSON.stringify(value)).then(()=>{setextra(!extra); setupdate([false, null, null])})
+                .catch(e=>console.log(e));
+              })
+              .catch((e) => console.log(e))
+              .catch((e) => {
+                console.log(e);
+              });
           }}
           validationSchema={Reviewschema}
         >
           {({
-            handleBlur,
             handleChange,
             handleSubmit,
             values,
@@ -163,6 +185,7 @@ export default function Others(props) {
                   }
                   placeholder="e.g. Receipt located at"
                   onChangeText={handleChange("stored")}
+                  value={values.stored}
                   onBlur={() => {
                     setstore(false);
                   }}
