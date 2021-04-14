@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Formik } from "formik";
 import * as yup from "yup";
 import Addmain from "../../db/Addmain";
+import { TextInputMask } from "react-native-masked-text";
 
 const Reviewschema = yup.object({
   departureplace: yup.string().required("Departure Place is Required"),
@@ -45,20 +46,19 @@ export default function Mainform(props) {
                 time: values.departuretime.trim(),
                 place: values.departureplace.trim(),
               },
-              arrival:{
+              arrival: {
                 date: values.arrivaldate.trim(),
                 time: values.arrivaltime.trim(),
                 place: values.arrivalplace.trim(),
-
               },
-              mode:values.mode.trim(),
-              distance:values.distance.trim(),
+              mode: values.mode.trim(),
+              distance: values.distance.trim(),
               fare: values.fare.trim(),
               pnr: values.pnr.trim(),
               remarks: values.remarks.trim(),
               stored: values.stored.trim(),
             };
-            Addmain(finalvalue, props.showmain, props.index)
+            Addmain(finalvalue, props.showmain, props.index);
           }}
           validationSchema={Reviewschema}
         >
@@ -76,22 +76,42 @@ export default function Mainform(props) {
                 <View style={styles.deparr}>
                   <View style={styles.drblock}>
                     <Text style={styles.drblocktext}>Date</Text>
-                    <TextInput
+                    {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Date"
                       onChangeText={handleChange("departuredate")}
                       onBlur={handleBlur("departuredate")}
                       value={values.departuredate}
+                    /> */}
+                    <TextInputMask
+                      style={styles.mainforminputdeparr}
+                      placeholder="DD/MM/YYYY"
+                      type={"datetime"}
+                      options={{
+                        format: "DD/MM/YYYY",
+                      }}
+                      value={values.departuredate}
+                      onChangeText={handleChange("departuredate")}
                     />
                   </View>
                   <View style={styles.drblock}>
-                    <Text style={styles.drblocktext}>Time</Text>
-                    <TextInput
+                    <Text style={styles.drblocktext}>Time(24 hour)</Text>
+                    {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Time"
                       onChangeText={handleChange("departuretime")}
                       onBlur={handleBlur("departuretime")}
                       value={values.departuretime}
+                    /> */}
+                    <TextInputMask
+                      style={styles.mainforminputdeparr}
+                      placeholder="HH::MM"
+                      type={"datetime"}
+                      options={{
+                        format: "HH:MM",
+                      }}
+                      value={values.departuretime}
+                      onChangeText={handleChange("departuretime")}
                     />
                   </View>
                   <View style={styles.drblock}>
@@ -117,22 +137,42 @@ export default function Mainform(props) {
                 <View style={styles.deparr}>
                   <View style={styles.drblock}>
                     <Text style={styles.drblocktext}>Date</Text>
-                    <TextInput
+                    {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Date"
                       onChangeText={handleChange("arrivaldate")}
                       onBlur={handleBlur("arrivaldate")}
                       value={values.arrivaldate}
+                    /> */}
+                    <TextInputMask
+                      style={styles.mainforminputdeparr}
+                      placeholder="DD/MM/YYYY"
+                      type={"datetime"}
+                      options={{
+                        format: "DD/MM/YYYY",
+                      }}
+                      value={values.arrivaldate}
+                      onChangeText={handleChange("arrivaldate")}
                     />
                   </View>
                   <View style={styles.drblock}>
-                    <Text style={styles.drblocktext}>Time</Text>
-                    <TextInput
+                    <Text style={styles.drblocktext}>Time(24 hour)</Text>
+                    {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Time"
                       onChangeText={handleChange("arrivaltime")}
                       onBlur={handleBlur("arrivaltime")}
                       value={values.arrivaltime}
+                    /> */}
+                    <TextInputMask
+                      style={styles.mainforminputdeparr}
+                      placeholder="HH::MM"
+                      type={"datetime"}
+                      options={{
+                        format: "HH:MM",
+                      }}
+                      value={values.arrivaltime}
+                      onChangeText={handleChange("arrivaltime")}
                     />
                   </View>
                   <View style={styles.drblock}>
@@ -292,7 +332,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     shadowRadius: 3,
     borderRadius: 5,
-    fontSize: 15,
+    fontSize: 13,
     height: 35,
     textAlign: "left",
     paddingLeft: 5,
@@ -306,7 +346,7 @@ const styles = StyleSheet.create({
   },
   block: {},
   drblock: {
-    width: "28%",
+    width: "30%",
   },
   drblocktext: {},
 });
