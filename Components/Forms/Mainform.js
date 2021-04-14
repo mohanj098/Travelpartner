@@ -1,22 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Formik} from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
 import Addmain from "../../db/Addmain";
 
-
 const Reviewschema = yup.object({
-  // departure: yup.object({
-  //   date: yup.string().required(),
-  //   time: yup.string().required(),
-  //   place: yup.string().required(),
-  // }),
-  // arrival: {
-  //   date: yup.string().required(),
-  //   time: yup.string().required(),
-  //   place: yup.string().required(),
-  // },
+  departureplace: yup.string().required("Departure Place is Required"),
+  arrivalplace: yup.string().required("Arrival Place is Required"),
   mode: yup.string().required("Mode of Travel is required"),
   distance: yup
     .number()
@@ -28,31 +19,47 @@ const Reviewschema = yup.object({
   remarks: yup.string(),
 });
 
-
-
 export default function Mainform(props) {
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.mainformcontainer}>
         <Formik
           initialValues={{
-            departure: {
-              date: "",
-              time: "",
-              place: "",
-            },
-            arrival: {
-              date: "",
-              time: "",
-              place: "",
-            },
+            departuredate: "",
+            departuretime: "",
+            departureplace: "",
+            arrivaldate: "",
+            arrivaltime: "",
+            arrivalplace: "",
             mode: "",
             distance: "",
             fare: "",
             pnr: "",
             remarks: "",
+            stored: "",
           }}
-          onSubmit={(values) => Addmain(values, props.showmain, props.index)}
+          onSubmit={(values) => {
+            const finalvalue = {
+              departure: {
+                date: values.departuredate.trim(),
+                time: values.departuretime.trim(),
+                place: values.departureplace.trim(),
+              },
+              arrival:{
+                date: values.arrivaldate.trim(),
+                time: values.arrivaltime.trim(),
+                place: values.arrivalplace.trim(),
+
+              },
+              mode:values.mode.trim(),
+              distance:values.distance.trim(),
+              fare: values.fare.trim(),
+              pnr: values.pnr.trim(),
+              remarks: values.remarks.trim(),
+              stored: values.stored.trim(),
+            };
+            Addmain(finalvalue, props.showmain, props.index)
+          }}
           validationSchema={Reviewschema}
         >
           {({
@@ -64,113 +71,177 @@ export default function Mainform(props) {
             touched,
           }) => (
             <View style={styles.mainformform}>
-              <View>
-                <Text style={styles.deptext}>Departure</Text>
+              <View style={styles.block}>
+                <Text style={styles.info}>Departure</Text>
                 <View style={styles.deparr}>
-                  <TextInput
-                    style={styles.mainforminputdeparr}
-                    placeholder="Date"
-                    onChangeText={handleChange("departure.date")}
-                    onBlur={handleBlur("departure.date")}
-                    value={values.departure.date}
-                  />
-                  <TextInput
-                    style={styles.mainforminputdeparr}
-                    placeholder="Time"
-                    onChangeText={handleChange("departure.time")}
-                    onBlur={handleBlur("departure.time")}
-                    value={values.departure.time}
-                  />
-                  <TextInput
-                    style={styles.mainforminputdeparr}
-                    placeholder="Place"
-                    onChangeText={handleChange("departure.place")}
-                    onBlur={handleBlur("departure.place")}
-                    value={values.departure.place}
-                  />
+                  <View style={styles.drblock}>
+                    <Text style={styles.drblocktext}>Date</Text>
+                    <TextInput
+                      style={styles.mainforminputdeparr}
+                      placeholder="Date"
+                      onChangeText={handleChange("departuredate")}
+                      onBlur={handleBlur("departuredate")}
+                      value={values.departuredate}
+                    />
+                  </View>
+                  <View style={styles.drblock}>
+                    <Text style={styles.drblocktext}>Time</Text>
+                    <TextInput
+                      style={styles.mainforminputdeparr}
+                      placeholder="Time"
+                      onChangeText={handleChange("departuretime")}
+                      onBlur={handleBlur("departuretime")}
+                      value={values.departuretime}
+                    />
+                  </View>
+                  <View style={styles.drblock}>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={styles.drblocktext}>Place</Text>
+                      <Text style={{ color: "red" }}>*</Text>
+                    </View>
+                    <TextInput
+                      style={styles.mainforminputdeparr}
+                      placeholder="Place"
+                      onChangeText={handleChange("departureplace")}
+                      onBlur={handleBlur("departureplace")}
+                      value={values.departureplace}
+                    />
+                  </View>
                 </View>
+                <Text style={styles.mainforerror}>
+                  {touched.departureplace && errors.departureplace}
+                </Text>
               </View>
-              <View style={{ marginBottom: 20 }}>
-                <Text style={styles.deptext}>Arrival</Text>
+              <View style={styles.block}>
+                <Text style={styles.info}>Arrival</Text>
                 <View style={styles.deparr}>
-                  <TextInput
-                    style={styles.mainforminputdeparr}
-                    placeholder="Date"
-                    onChangeText={handleChange("arrival.date")}
-                    onBlur={handleBlur("arrival.date")}
-                    value={values.arrival.date}
-                  />
-                  <TextInput
-                    style={styles.mainforminputdeparr}
-                    placeholder="Time"
-                    onChangeText={handleChange("arrival.time")}
-                    onBlur={handleBlur("arrival.time")}
-                    value={values.arrival.time}
-                  />
-                  <TextInput
-                    style={styles.mainforminputdeparr}
-                    placeholder="Place"
-                    onChangeText={handleChange("arrival.place")}
-                    onBlur={handleBlur("arrival.place")}
-                    value={values.arrival.place}
-                  />
+                  <View style={styles.drblock}>
+                    <Text style={styles.drblocktext}>Date</Text>
+                    <TextInput
+                      style={styles.mainforminputdeparr}
+                      placeholder="Date"
+                      onChangeText={handleChange("arrivaldate")}
+                      onBlur={handleBlur("arrivaldate")}
+                      value={values.arrivaldate}
+                    />
+                  </View>
+                  <View style={styles.drblock}>
+                    <Text style={styles.drblocktext}>Time</Text>
+                    <TextInput
+                      style={styles.mainforminputdeparr}
+                      placeholder="Time"
+                      onChangeText={handleChange("arrivaltime")}
+                      onBlur={handleBlur("arrivaltime")}
+                      value={values.arrivaltime}
+                    />
+                  </View>
+                  <View style={styles.drblock}>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={styles.drblocktext}>Place</Text>
+                      <Text style={{ color: "red" }}>*</Text>
+                    </View>
+                    <TextInput
+                      style={styles.mainforminputdeparr}
+                      placeholder="Place"
+                      onChangeText={handleChange("arrivalplace")}
+                      onBlur={handleBlur("arrivalplace")}
+                      value={values.arrivalplace}
+                    />
+                  </View>
                 </View>
+                <Text style={styles.mainforerror}>
+                  {touched.arrivalplace && errors.arrivalplace}
+                </Text>
               </View>
-              <Text>Mode of Travel</Text>
-              <TextInput
-                style={styles.mainforminput}
-                placeholder="Mode of Travel"
-                onChangeText={handleChange("mode")}
-                onBlur={handleBlur("mode")}
-                value={values.mode}
-              />
-              <Text style={styles.mainforerror}>
-                {touched.mode && errors.mode}
-              </Text>
-              <Text>Distance in km</Text>
-              <TextInput
-                style={styles.mainforminput}
-                placeholder="Distance in km"
-                onChangeText={handleChange("distance")}
-                onBlur={handleBlur("distance")}
-                value={values.distance}
-              />
-              <Text style={styles.mainforerror}>
-                {touched.distance && errors.distance}
-              </Text>
-              <Text>Fare</Text>
-              <TextInput
-                style={styles.mainforminput}
-                placeholder="Fare"
-                onChangeText={handleChange("fare")}
-                onBlur={handleBlur("fare")}
-                value={values.fare}
-              />
-              <Text style={styles.mainforerror}>
-                {touched.fare && errors.fare}
-              </Text>
-              <Text>PNR/Ticket Number</Text>
-              <TextInput
-                style={styles.mainforminput}
-                placeholder="PNR number/Ticket number"
-                onChangeText={handleChange("pnr")}
-                onBlur={handleBlur("pnr")}
-                value={values.pnr}
-              />
-              <Text style={styles.mainforerror}>
-                {touched.pnr && errors.pnr}
-              </Text>
-              <Text>Remarks(is any)</Text>
-              <TextInput
-                style={styles.mainforminput}
-                placeholder="Any Remarks"
-                onChangeText={handleChange("remarks")}
-                onBlur={handleBlur("remarks")}
-                value={values.remarks}
-              />
-              <Text style={styles.mainforerror}>
-                {touched.remarks && errors.remarks}
-              </Text>
+              <View style={styles.block}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.info}>Mode of Travel</Text>
+                  <Text style={{ color: "red" }}>*</Text>
+                </View>
+                <TextInput
+                  style={styles.mainforminput}
+                  placeholder="Mode of Travel"
+                  onChangeText={handleChange("mode")}
+                  onBlur={handleBlur("mode")}
+                  value={values.mode}
+                />
+                <Text style={styles.mainforerror}>
+                  {touched.mode && errors.mode}
+                </Text>
+              </View>
+              <View style={styles.block}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.info}>Distance(in km)</Text>
+                  <Text style={{ color: "red" }}>*</Text>
+                </View>
+                <TextInput
+                  style={styles.mainforminput}
+                  placeholder="Distance(in km)"
+                  onChangeText={handleChange("distance")}
+                  onBlur={handleBlur("distance")}
+                  value={values.distance}
+                />
+                <Text style={styles.mainforerror}>
+                  {touched.distance && errors.distance}
+                </Text>
+              </View>
+              <View style={styles.block}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.info}>Fare(in rupees)</Text>
+                  <Text style={{ color: "red" }}>*</Text>
+                </View>
+                <TextInput
+                  style={styles.mainforminput}
+                  placeholder="Fare"
+                  onChangeText={handleChange("fare")}
+                  onBlur={handleBlur("fare")}
+                  value={values.fare}
+                />
+                <Text style={styles.mainforerror}>
+                  {touched.fare && errors.fare}
+                </Text>
+              </View>
+              <View style={styles.block}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.info}>PNR/Ticket Number</Text>
+                  <Text style={{ color: "red" }}>*</Text>
+                </View>
+                <TextInput
+                  style={styles.mainforminput}
+                  placeholder="PNR number/Ticket number"
+                  onChangeText={handleChange("pnr")}
+                  onBlur={handleBlur("pnr")}
+                  value={values.pnr}
+                />
+                <Text style={styles.mainforerror}>
+                  {touched.pnr && errors.pnr}
+                </Text>
+              </View>
+              <View style={styles.block}>
+                <Text style={styles.info}>Remarks(is any)</Text>
+                <TextInput
+                  style={styles.mainforminput}
+                  placeholder="Any Remarks"
+                  onChangeText={handleChange("remarks")}
+                  onBlur={handleBlur("remarks")}
+                  value={values.remarks}
+                />
+              </View>
+              <View style={styles.block}>
+                <Text style={styles.info}>
+                  Ticket Information(For your Refrence only)
+                </Text>
+                <TextInput
+                  style={styles.mainforminput}
+                  placeholder="i.e. Payment Method, etc."
+                  onChangeText={handleChange("stored")}
+                  onBlur={handleBlur("stored")}
+                  value={values.stored}
+                />
+                <Text style={styles.mainforerror}>
+                  {touched.remarks && errors.remarks}
+                </Text>
+              </View>
               <Button onPress={handleSubmit} title="Submit" />
             </View>
           )}
@@ -195,22 +266,21 @@ const styles = StyleSheet.create({
   },
   mainformform: {
     marginTop: 10,
-    width: "90%",
+    width: "75%",
   },
   mainforminput: {
     borderColor: "black",
     borderWidth: 1,
     shadowRadius: 3,
     borderRadius: 5,
-    height: 40,
-    textAlign: "center",
-    fontSize: 20,
-    marginVertical: 4,
+    height: 30,
+    textAlign: "left",
+    paddingLeft: 5,
+    fontSize: 15,
   },
   mainformerror: {
     color: "red",
     fontSize: 15,
-    marginVertical: 3,
   },
 
   deparr: {
@@ -219,21 +289,24 @@ const styles = StyleSheet.create({
   },
   mainforminputdeparr: {
     borderColor: "black",
-    width: "28%",
     borderWidth: 1,
-    margin: 6,
     shadowRadius: 3,
     borderRadius: 5,
     fontSize: 15,
-    height: 40,
-    textAlign: "center",
-  },
-  deptext: {
-    fontSize: 18,
-    fontWeight: "200",
-    textTransform: "uppercase",
+    height: 35,
+    textAlign: "left",
+    paddingLeft: 5,
   },
   mainforerror: {
     color: "red",
   },
+  info: {
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  block: {},
+  drblock: {
+    width: "28%",
+  },
+  drblocktext: {},
 });
