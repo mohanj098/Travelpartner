@@ -19,7 +19,7 @@ export default function Mediate({ showmain, showother, data, index, extra, setex
         showsHorizontalScrollIndicator={false}
       >
         <View style={{ width, height }}>
-          <Maintable data={data} index={index} />
+          <Maintable data={data} index={index} extra={extra} setextra={setextra} />
         </View>
         <View style={{ width, height}}>
           <Othertable data={data} index={index} extra={extra} setextra={setextra}/>

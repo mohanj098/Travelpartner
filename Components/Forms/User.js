@@ -104,7 +104,10 @@ export default function User(props) {
             }) => (
               <View style={styles.userform}>
                 <View style={styles.box}>
-                  <Text style={styles.info}>Name</Text>
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Text style={styles.info}>Name</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
                   <TextInput
                     style={
                       namea === true ? styles.userinputactive : styles.userinput
@@ -125,7 +128,10 @@ export default function User(props) {
                   </Text>
                 </View>
                 <View style={styles.box}>
-                  <Text style={styles.info}>Employee Code</Text>
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Text style={styles.info}>Employee Code</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
                   <TextInput
                     style={
                       codea === true ? styles.userinputactive : styles.userinput
@@ -146,7 +152,10 @@ export default function User(props) {
                   </Text>
                 </View>
                 <View style={styles.box}>
-                  <Text style={styles.info}>Department</Text>
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Text style={styles.info}>Department</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
                   <TextInput
                     style={
                       depa === true ? styles.userinputactive : styles.userinput
@@ -167,7 +176,10 @@ export default function User(props) {
                   </Text>
                 </View>
                 <View style={styles.box}>
-                  <Text style={styles.info}>Designation</Text>
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Text style={styles.info}>Designation</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
                   <TextInput
                     style={
                       desa === true ? styles.userinputactive : styles.userinput
@@ -188,7 +200,10 @@ export default function User(props) {
                   </Text>
                 </View>
                 <View style={styles.box}>
-                  <Text style={styles.info}>Basic Pay(in rupees)</Text>
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Text style={styles.info}>Basic Pay(in rupees)</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
                   <TextInput
                     style={
                       paya === true ? styles.userinputactive : styles.userinput
@@ -210,7 +225,11 @@ export default function User(props) {
                   </Text>
                 </View>
                 <View style={styles.box}>
-                  <Text style={styles.info}>Account Number</Text>
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <Text style={styles.info}>Account Number</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
+
                   <TextInput
                     style={
                       acca === true ? styles.userinputactive : styles.userinput

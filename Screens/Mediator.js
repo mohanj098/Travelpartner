@@ -26,7 +26,7 @@ export default function Mediator({ navigation, route }) {
       .catch((e) => {
         console.log(e);
       });
-  }, [showmain, showother, setextra]);
+  }, [showmain, showother, extra]);
 
   if (!load) {
     return (

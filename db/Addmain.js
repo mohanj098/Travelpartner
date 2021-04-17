@@ -12,7 +12,6 @@ export default function Addmain(values, showmain, index) {
         }
         newdata[index].main.push(values);
         AsyncStorage.setItem('trip', JSON.stringify(newdata)).then(()=>{
-          alert("done");
           showmain(false)
         }).catch(e=>{console.log(e)});
 

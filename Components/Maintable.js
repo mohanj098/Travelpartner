@@ -1,15 +1,24 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import {
   Table,
-  TableWrapper,
   Row,
   Rows,
-  Col,
+  TableWrapper,
+  Cell,
 } from "react-native-table-component";
 import { useEffect, useState } from "react/cjs/react.development";
+import Updateform from "./Forms/Updatemain";
 
-export default function Maintable({ data }) {
+export default function Maintable({ data, index, extra, setextra }) {
   const tablehead = [
     "Departure\n{Date}\n{Time}\n{Place}",
     "Arrival\n{Date}\n{Time}\n{Place}",
@@ -18,26 +27,32 @@ export default function Maintable({ data }) {
     "Fare",
     "Ticket no.",
     "remarks",
+    "Other details\n(for your refrence)",
+    "",
   ];
-  //const [rowdata, setrowdata] = useState(["1", "2", "3", "4", "5", "6", "7"]);
+  const [update, setupdate] = useState([false, null, null]);
+  //show, index, data
+  const editbutton = (data, subindex) => {
+    return (
+      <TouchableOpacity
+        style={styles.editbutton}
+        onPress={() => {
+          setupdate([true, subindex, rowdata[subindex]]);
+        }}
+      >
+        <MaterialIcons name="edit" size={20} color="#5f38ab" />
+      </TouchableOpacity>
+    );
+  };
   const [rowdata, setrowdata] = useState([]);
+  const widtharr = [55, 40, 40, 50, 24, 35, 48, 45, 32];
   useEffect(() => {
     let rowdata0 = [];
     const main = data.main;
     const maxi = main.length;
+
     for (let i = 0; i < maxi; i += 1) {
       let rowdata1 = [];
-      rowdata1.push(
-        "{" +
-          main[i].arrival.date +
-          "}\n" +
-          "{" +
-          main[i].arrival.time +
-          "}\n" +
-          "{" +
-          main[i].arrival.place +
-          "}"
-      );
       rowdata1.push(
         "{" +
           main[i].departure.date +
@@ -49,11 +64,24 @@ export default function Maintable({ data }) {
           main[i].departure.place +
           "}"
       );
+      rowdata1.push(
+        "{" +
+          main[i].arrival.date +
+          "}\n" +
+          "{" +
+          main[i].arrival.time +
+          "}\n" +
+          "{" +
+          main[i].arrival.place +
+          "}"
+      );
       rowdata1.push(main[i].mode);
       rowdata1.push(main[i].distance);
       rowdata1.push(main[i].fare);
       rowdata1.push(main[i].pnr);
       rowdata1.push(main[i].remarks);
+      rowdata1.push(main[i].stored);
+      rowdata1.push("main");
       rowdata0.push(rowdata1);
     }
     setrowdata(rowdata0);
@@ -61,6 +89,23 @@ export default function Maintable({ data }) {
 
   return (
     <View style={styles.othertablecontainer}>
+      <Modal
+        visible={update[0]}
+        animationType="slide"
+        transparent={false}
+        onRequestClose={() => setupdate([false, null, null])}
+      >
+        <View style={styles.modal}>
+          <Updateform
+            index={index}
+            subindex={update[1]}
+            data={update[2]}
+            setupdate={setupdate}
+            extra={extra}
+            setextra={setextra}
+          />
+        </View>
+      </Modal>
       <Text style={styles.othertabletop}>Travel Expenses</Text>
       <ScrollView>
         <Table
@@ -74,15 +119,24 @@ export default function Maintable({ data }) {
         >
           <Row
             data={tablehead}
-            widthArr={[62, 60, 52, 52, 35, 55, 53]}
+            widthArr={[55, 40, 40, 50, 24, 35, 48, 45, 32]}
             height={55}
             textStyle={styles.otherheadtext}
           />
-          <Rows
-            data={rowdata}
-            widthArr={[62, 60, 52, 52, 35, 55, 53]}
-            textStyle={styles.othertext}
-          />
+          {rowdata.map((item, index1) => (
+            <TableWrapper key={index1} style={styles.row}>
+              {item.map((celldata, cellindex) => (
+                <Cell
+                  width={widtharr[cellindex]}
+                  key={cellindex}
+                  data={
+                    cellindex == 8 ? editbutton(celldata, index1) : celldata
+                  }
+                  textStyle={styles.othertext}
+                />
+              ))}
+            </TableWrapper>
+          ))}
         </Table>
       </ScrollView>
     </View>
@@ -100,7 +154,7 @@ const styles = StyleSheet.create({
   },
   otherheadtext: {
     textTransform: "uppercase",
-    fontSize: 10,
+    fontSize: 9,
     textAlign: "center",
     fontWeight: "700",
   },
@@ -114,5 +168,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginBottom: 10,
+  },
+  editbutton: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "white",
   },
 });

@@ -20,7 +20,7 @@ export default function Othertable({ data, index, extra, setextra }) {
     "Receipt Details (to be shared)",
     "Payment details",
     "Recipt's Location",
-    "edit",
+    ""
   ];
   const widtharr = [50, 50, 80, 60, 70, 38];
   const [rowdata, setrowdata] = useState([]);
