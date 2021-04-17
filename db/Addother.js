@@ -11,7 +11,6 @@ export default function Addother(values, showother, index) {
         }
         newdata[index].other.push(values);
         AsyncStorage.setItem('trip', JSON.stringify(newdata)).then((value)=>{
-          alert("done");
           showother(false)
         }).catch(e=>{console.log(e)});
       })

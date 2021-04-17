@@ -11,6 +11,7 @@ import {
 import { set } from "react-native-reanimated";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import { useEffect, useState } from "react/cjs/react.development";
+import Deleterow from "../db/Deleterow";
 import Updateform from "./Forms/Updateothers";
 
 export default function Othertable({ data, index, extra, setextra }) {
@@ -20,7 +21,7 @@ export default function Othertable({ data, index, extra, setextra }) {
     "Receipt Details (to be shared)",
     "Payment details",
     "Recipt's Location",
-    ""
+    "",
   ];
   const widtharr = [50, 50, 80, 60, 70, 38];
   const [rowdata, setrowdata] = useState([]);
@@ -45,14 +46,28 @@ export default function Othertable({ data, index, extra, setextra }) {
 
   const editbutton = (data, subindex) => {
     return (
-      <TouchableOpacity
-        style={styles.editbutton}
-        onPress={() => {
-          setupdate([true, subindex, rowdata[subindex]]);
-        }}
-      >
-        <MaterialIcons name="edit" size={20} color="#5f38ab" />
-      </TouchableOpacity>
+      <View style={{flex:1, flexDirection: 'column'}}>
+        <TouchableOpacity
+          style={styles.editbutton}
+          onPress={() => {
+            setupdate([true, subindex, rowdata[subindex]]);
+          }}
+        >
+          <MaterialIcons name="edit" size={20} color="#5f38ab" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.editbutton}
+          onPress={() => {
+            setextra(!extra)
+            Deleterow(1, index, subindex).then(
+              setextra(!extra)
+            )
+            .catch(e=>{console.log(e)})
+          }}
+        >
+          <MaterialIcons name="delete" size={20} color="#5f38ab" />
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -96,7 +111,6 @@ export default function Othertable({ data, index, extra, setextra }) {
             <TableWrapper key={index1} style={styles.row}>
               {item.map((celldata, cellindex) => (
                 <Cell
-                  height={30}
                   width={widtharr[cellindex]}
                   key={cellindex}
                   data={
@@ -143,6 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   editbutton: {
+    margin: 1,
     justifyContent: "center",
     alignItems: "center",
   },

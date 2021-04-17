@@ -16,6 +16,7 @@ import {
   Cell,
 } from "react-native-table-component";
 import { useEffect, useState } from "react/cjs/react.development";
+import Deleterow from "../db/Deleterow";
 import Updateform from "./Forms/Updatemain";
 
 export default function Maintable({ data, index, extra, setextra }) {
@@ -34,14 +35,29 @@ export default function Maintable({ data, index, extra, setextra }) {
   //show, index, data
   const editbutton = (data, subindex) => {
     return (
-      <TouchableOpacity
-        style={styles.editbutton}
-        onPress={() => {
-          setupdate([true, subindex, rowdata[subindex]]);
-        }}
-      >
-        <MaterialIcons name="edit" size={20} color="#5f38ab" />
-      </TouchableOpacity>
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <TouchableOpacity
+          style={styles.editbutton}
+          onPress={() => {
+            setupdate([true, subindex, rowdata[subindex]]);
+          }}
+        >
+          <MaterialIcons name="edit" size={20} color="#5f38ab" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.editbutton}
+          onPress={() => {
+            setextra(!extra);
+            Deleterow(0, index, subindex)
+              .then(setextra(!extra))
+              .catch((e) => {
+                console.log(e);
+              });
+          }}
+        >
+          <MaterialIcons name="delete" size={20} color="#5f38ab" />
+        </TouchableOpacity>
+      </View>
     );
   };
   const [rowdata, setrowdata] = useState([]);
@@ -170,6 +186,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   editbutton: {
+    margin:1,
     justifyContent: "center",
     alignItems: "center",
   },
