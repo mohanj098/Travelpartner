@@ -9,14 +9,15 @@ export default async function Deleterow(table, index, subindex){
     exact.splice(subindex, 1);
     data[index].other=exact;
     const final=JSON.stringify(data);
-    await AsyncStorage.setItem('trip', final)
+    const ok= await AsyncStorage.setItem('trip', final)
+    return ok;
   }
   if(table===0){
     const exact=data[index].main;
     exact.splice(subindex, 1);
     data[index].main=exact;
     const final=JSON.stringify(data);
-    await AsyncStorage.setItem('trip', final)
+    const ok=await AsyncStorage.setItem('trip', final)
+    return ok;
   }
-  return;
 }

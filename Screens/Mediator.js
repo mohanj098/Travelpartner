@@ -26,7 +26,7 @@ export default function Mediator({ navigation, route }) {
       .catch((e) => {
         console.log(e);
       });
-  }, [showmain, showother, extra]);
+  }, [extra]);
 
   if (!load) {
     return (
@@ -38,7 +38,7 @@ export default function Mediator({ navigation, route }) {
           onRequestClose={() => setshowmain(false)}
         >
           <View style={styles.modal}>
-            <Mainform showmain={setshowmain} index={index} />
+            <Mainform showmain={setshowmain} index={index} extra={extra} setextra={setextra}/>
           </View>
         </Modal>
         <Modal
@@ -48,7 +48,7 @@ export default function Mediator({ navigation, route }) {
           onRequestClose={() => setshowother(false)}
         >
           <View style={styles.modal}>
-            <Otherform showother={setshowother} index={index} />
+            <Otherform showother={setshowother} index={index} extra={extra} setextra={setextra}/>
           </View>
         </Modal>
         <Middle

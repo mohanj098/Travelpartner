@@ -47,7 +47,6 @@ export default function Maintable({ data, index, extra, setextra }) {
         <TouchableOpacity
           style={styles.editbutton}
           onPress={() => {
-            setextra(!extra);
             Deleterow(0, index, subindex)
               .then(setextra(!extra))
               .catch((e) => {

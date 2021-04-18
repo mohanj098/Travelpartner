@@ -58,7 +58,7 @@ export default function Mainform(props) {
               remarks: values.remarks.trim(),
               stored: values.stored.trim(),
             };
-            Addmain(finalvalue, props.showmain, props.index);
+            Addmain(finalvalue, props.showmain, props.index, props.extra, props.setextra);
           }}
           validationSchema={Reviewschema}
         >

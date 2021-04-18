@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GetData from './GetData';
 
-export default function Addmain(values, showmain, index) {
-    console.log(values, index)
+export default function Addmain(values, showmain, index, extra, setextra) {
     GetData('trip')
       .then((value) => {
         const data=value;
@@ -12,11 +11,9 @@ export default function Addmain(values, showmain, index) {
         }
         newdata[index].main.push(values);
         AsyncStorage.setItem('trip', JSON.stringify(newdata)).then(()=>{
-          showmain(false)
-        }).catch(e=>{console.log(e)});
-
-  
-        
+          setextra(!extra);
+          showmain(false);
+        }).catch(e=>{console.log(e)}); 
       })
       .catch((e) => console.log(e));
   }

@@ -43,7 +43,7 @@ export default function Others(props) {
               payment: values.payment.trim(),
               stored: values.stored.trim(),
             };
-            Addother(finalvalue, props.showother, props.index);
+            Addother(finalvalue, props.showother, props.index, props.extra, props.setextra);
           }}
           validationSchema={Reviewschema}
         >

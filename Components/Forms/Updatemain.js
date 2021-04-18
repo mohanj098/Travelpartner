@@ -36,11 +36,11 @@ export default function Mainform(props) {
       <View style={styles.mainformcontainer}>
         <Formik
           initialValues={{
-            departuredate: departuredata[0],
-            departuretime: departuredata[1],
+            departuredate: departuredata[0].split('{', 2)[1].split('}', 2)[0],
+            departuretime: departuredata[1].split('{', 2)[1].split('}', 2)[0],
             departureplace: departuredata[2].split('{', 2)[1].split('}', 2)[0],
-            arrivaldate: arrivaldata[0],
-            arrivaltime: arrivaldata[1],
+            arrivaldate: arrivaldata[0].split('{', 2)[1].split('}', 2)[0],
+            arrivaltime: arrivaldata[1].split('{', 2)[1].split('}', 2)[0],
             arrivalplace: arrivaldata[2].split('{', 2)[1].split('}', 2)[0],
             mode: data[2],
             distance: data[3],
