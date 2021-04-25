@@ -1,25 +1,43 @@
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import ActionButton from "react-native-action-button";
+import { StyleSheet } from "react-native";
 
-export default function Action({showmain, showother}) {
+export default function Action({ showmain, showother }) {
   return (
-    <ActionButton>
+    <ActionButton
+      size={60}
+      renderIcon={() => {
+        return <MaterialIcons name="add" size={40} color="white" />;
+      }}
+    >
       <ActionButton.Item
+        style={styles.insidebutton}
         buttonColor="white"
         title="Travelling Expense"
-        onPress={() => {showmain(true)}}
+        onPress={() => {
+          showmain(true);
+        }}
       >
-        <Ionicons name="ios-add-circle" size={60} color="#9b59b6" />
+        <Ionicons name="ios-add-circle" size={40} color="#9b59b6" />
       </ActionButton.Item>
       <ActionButton.Item
+        style={styles.insidebutton}
         buttonColor="white"
         title="Other Expense"
-        onPress={() => {showother(true)}}
+        onPress={() => {
+          showother(true);
+        }}
       >
-        <Ionicons name="ios-add-circle" size={60} color="#9b59b6" />
+        <Ionicons name="ios-add-circle" size={40} color="#9b59b6" />
       </ActionButton.Item>
-      
     </ActionButton>
   );
 }
+
+const styles = StyleSheet.create({
+  insidebutton: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

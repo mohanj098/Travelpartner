@@ -46,7 +46,7 @@ export default function Othertable({ data, index, extra, setextra }) {
 
   const editbutton = (data, subindex) => {
     return (
-      <View style={{flex:1, flexDirection: 'column'}}>
+      <View style={{ flex: 1, flexDirection: "column" }}>
         <TouchableOpacity
           style={styles.editbutton}
           onPress={() => {
@@ -58,11 +58,14 @@ export default function Othertable({ data, index, extra, setextra }) {
         <TouchableOpacity
           style={styles.editbutton}
           onPress={() => {
-            setextra(!extra)
-            Deleterow(1, index, subindex).then(
-              setextra(!extra)
-            )
-            .catch(e=>{console.log(e)})
+            Deleterow(1, index, subindex)
+              .then(() => {
+                setextra(!extra);
+                setextra(!extra);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
           }}
         >
           <MaterialIcons name="delete" size={20} color="#5f38ab" />
