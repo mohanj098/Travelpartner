@@ -1,12 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Header(props) {
   if (props.button) {
     return (
       <View style={styles.button}>
-        <View style={{ marginHorizontal: 10, width: '10%'}}>
+        <View style={{ marginHorizontal: 10, width: "10%" }}>
           <Ionicons
             name="menu"
             size={35}
@@ -20,9 +20,8 @@ export default function Header(props) {
             fontSize: 25,
             color: "white",
             marginLeft: 20,
-            fontWeight: 'bold',
+            fontWeight: "bold",
             textTransform: "uppercase",
-
           }}
         >
           {props.title}
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     textTransform: "uppercase",
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   button: {
     flexDirection: "row",

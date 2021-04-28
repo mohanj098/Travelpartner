@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Card from "./Card";
-import {FlatList, StyleSheet, View} from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import Getdata from "../db/GetData";
 import { useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
-import Searchbar from  "./SearchBar"
+import Searchbar from "./SearchBar";
 
 export default function Display({ navigation }) {
   const [Data, setData] = useState([]);
   const [fulldata, setfulldata] = useState([]);
   const isFocused = useIsFocused();
 
-  function helper() {
+  function helper(){
     Getdata("trip")
       .then((values) => JSON.parse(values))
       .then((result) => {
@@ -22,6 +22,7 @@ export default function Display({ navigation }) {
         } else {
           setData([]);
         }
+        return
       })
       .catch((e) => console.log(e));
   }
@@ -32,11 +33,9 @@ export default function Display({ navigation }) {
 
   return (
     <View style={styles.displaycontainer}>
-      <Searchbar
-            setData={setData}
-            fulldata={fulldata}
-          />
+      <Searchbar setData={setData} fulldata={fulldata} />
       <FlatList
+        extraData={Data.length}
         style={styles.flat}
         showsVerticalScrollIndicator={false}
         data={Data}

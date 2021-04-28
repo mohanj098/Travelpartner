@@ -24,7 +24,7 @@ function Main({ navigation }) {
         }}
       />
       <Display navigation={navigation} />
-      <StatusBar style="auto" />
+      <StatusBar style={{backgroundColor: "#7242cf"}} />
     </View>
   );
 }

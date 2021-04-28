@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../Components/Header";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions, Modal } from "react-native";
 import Action from "./Action";
 import Othertable from "./Othertable.js";
 import { ScrollView } from "react-native-gesture-handler";
 import Maintable from "./Maintable";
 import Print from "./Print";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
+import Confirmation from "./Confirmation";
 
 export default function Mediate({
   showmain,
@@ -15,14 +16,29 @@ export default function Mediate({
   index,
   extra,
   setextra,
+  navigation,
 }) {
-  useEffect(()=>{
-
-  }, [])
+  useEffect(() => {}, []);
   const { width, height } = Dimensions.get("window");
+  const [showdelete, setshowdelete] = useState(false);
   return (
     <View style={styles.mediatorcontainer}>
       <Header title={data.title} button={false} />
+      <Modal
+        visible={showdelete}
+        transparent={true}
+        style={{ alignItems: "center", justifyContent: "center" }}
+        onRequestClose={() => {
+          setshowdelete(false);
+        }}
+      >
+        <Confirmation
+          title="This will delete entire trip!"
+          setshowdelete={setshowdelete}
+          index={index}
+          navigation={navigation}
+        />
+      </Modal>
       <ScrollView
         style={{ flex: 1 }}
         horizontal={true}
@@ -47,7 +63,7 @@ export default function Mediate({
           />
         </View>
       </ScrollView>
-      <Print data={data}/>
+      <Print data={data} setshowdelete={setshowdelete} />
       <Action showmain={showmain} showother={showother} />
     </View>
   );

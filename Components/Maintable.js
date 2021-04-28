@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  Dimensions,
 } from "react-native";
 import {
   Table,
@@ -20,6 +21,7 @@ import Deleterow from "../db/Deleterow";
 import Updateform from "./Forms/Updatemain";
 
 export default function Maintable({ data, index, extra, setextra }) {
+  const { width, height } = Dimensions.get("window");
   const tablehead = [
     "Departure\n{Date}\n{Time}\n{Place}",
     "Arrival\n{Date}\n{Time}\n{Place}",
@@ -126,8 +128,8 @@ export default function Maintable({ data, index, extra, setextra }) {
         <Table
           style={{
             backgroundColor: "white",
-            width: "90%",
-            marginHorizontal: "5%",
+            width: 369,
+            marginHorizontal: (width-369)/2,
           }}
           height={200}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}

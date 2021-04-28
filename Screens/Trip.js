@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header';
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, StatusBar } from 'react-native'
 import Tripover from '../Components/Forms/Tripoverview';
 
 export default function Trip({navigation}) {
@@ -8,6 +8,7 @@ export default function Trip({navigation}) {
         <View style={styles.tripcontainer}>
             <Header title="ADd A trip"/>
             <Tripover navigation={navigation}/>
+            <StatusBar style={{backgroundColor: "#7242cf"}} />
         </View>
     )
 }

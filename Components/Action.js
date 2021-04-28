@@ -7,8 +7,9 @@ export default function Action({ showmain, showother }) {
   return (
     <ActionButton
       size={60}
+      buttonColor="#5f38ab"
       renderIcon={() => {
-        return <MaterialIcons name="add" size={40} color="white" />;
+        return <MaterialIcons name="add" size={30} color="white" />;
       }}
     >
       <ActionButton.Item
@@ -19,7 +20,7 @@ export default function Action({ showmain, showother }) {
           showmain(true);
         }}
       >
-        <Ionicons name="ios-add-circle" size={40} color="#9b59b6" />
+        <MaterialIcons name="add" size={40} color="#5f38ab" />
       </ActionButton.Item>
       <ActionButton.Item
         style={styles.insidebutton}
@@ -29,7 +30,7 @@ export default function Action({ showmain, showother }) {
           showother(true);
         }}
       >
-        <Ionicons name="ios-add-circle" size={40} color="#9b59b6" />
+        <MaterialIcons name="add" size={40} color="#5f38ab" />
       </ActionButton.Item>
     </ActionButton>
   );

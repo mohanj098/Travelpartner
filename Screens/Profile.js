@@ -7,6 +7,7 @@ import {
   View,
   t,
   Modal,
+  StatusBar,
 } from "react-native";
 import GetData from "../db/GetData";
 import { useEffect, useState } from "react/cjs/react.development";
@@ -115,6 +116,7 @@ export default function Profile({ navigation }) {
             setshow(true);
           }}
         />
+        <StatusBar style={{backgroundColor: "#7242cf"}} />
       </View>
     );
   }

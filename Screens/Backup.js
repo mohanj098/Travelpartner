@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import Header from "../Components/Header";
 import Backupbutton from "../Components/Backupbutton";
 import Uploadbutton from "../Components/Downloadbutton";
@@ -16,6 +16,7 @@ export default function Backup({ navigation }) {
         <Backupbutton />
         <Uploadbutton/>
       </View>
+      <StatusBar style={{backgroundColor: "#7242cf"}} />
     </View>
   );
 }

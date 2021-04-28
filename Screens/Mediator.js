@@ -4,7 +4,7 @@ import Getdata from "../db/GetData";
 import Mainform from "../Components/Forms/Mainform";
 import Otherform from "../Components/Forms/Others";
 import Middle from "../Components/Mediator";
-import { Modal, StyleSheet, View, ActivityIndicator } from "react-native";
+import { Modal, StyleSheet, View, ActivityIndicator, StatusBar } from "react-native";
 
 export default function Mediator({ navigation, route }) {
   const { index } = route.params;
@@ -58,7 +58,9 @@ export default function Mediator({ navigation, route }) {
           index={index}
           setextra={setextra}
           extra={extra}
+          navigation={navigation}
         />
+        <StatusBar style={{backgroundColor: "#7242cf"}} />
       </View>
     );
   } else {

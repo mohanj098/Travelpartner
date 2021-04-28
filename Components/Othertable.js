@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  Dimensions,
 } from "react-native";
 import { set } from "react-native-reanimated";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
@@ -23,7 +24,9 @@ export default function Othertable({ data, index, extra, setextra }) {
     "Recipt's Location",
     "",
   ];
-  const widtharr = [50, 50, 80, 60, 70, 38];
+  const { width, height } = Dimensions.get("window");
+
+  const widtharr = [50, 50, 80, 60, 70, 36];
   const [rowdata, setrowdata] = useState([]);
   const [update, setupdate] = useState([false, null, null]);
   //show, index, data
@@ -98,8 +101,8 @@ export default function Othertable({ data, index, extra, setextra }) {
         <Table
           style={{
             backgroundColor: "white",
-            width: "85%",
-            marginHorizontal: "7%",
+            width: 348,
+            marginHorizontal: (width-348)/2,
           }}
           height={200}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}
@@ -114,7 +117,7 @@ export default function Othertable({ data, index, extra, setextra }) {
             <TableWrapper key={index1} style={styles.row}>
               {item.map((celldata, cellindex) => (
                 <Cell
-                  width={widtharr[cellindex]}
+                 width={widtharr[cellindex]}
                   key={cellindex}
                   data={
                     cellindex == 5 ? editbutton(celldata, index1) : celldata
