@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     fontSize: 25,
     color: "black",
-    textTransform: "lowercase",
+    // textTransform: "lowercase",
   },
   iconview: {
     alignSelf: 'center',

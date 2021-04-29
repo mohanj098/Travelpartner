@@ -50,7 +50,10 @@ export default function Maintable({ data, index, extra, setextra }) {
           style={styles.editbutton}
           onPress={() => {
             Deleterow(0, index, subindex)
-              .then(setextra(!extra))
+              .then(() => {
+                setextra(!extra);
+                setextra(!extra);
+              })
               .catch((e) => {
                 console.log(e);
               });
@@ -129,7 +132,7 @@ export default function Maintable({ data, index, extra, setextra }) {
           style={{
             backgroundColor: "white",
             width: 369,
-            marginHorizontal: (width-369)/2,
+            marginHorizontal: (width - 369) / 2,
           }}
           height={200}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}
@@ -187,7 +190,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   editbutton: {
-    margin:1,
+    margin: 1,
     justifyContent: "center",
     alignItems: "center",
   },

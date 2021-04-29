@@ -30,7 +30,8 @@ export default function Tripoverview({navigation }) {
     >
       <Formik
         initialValues={{ title: "" }}
-        onSubmit={(values) => {
+        onSubmit={(value) => {
+          const values={title: value.title.toLowerCase()}
           SendtoTrip(values)
             .then(()=>{navigation.navigate("Home")})
             .catch((e) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Card from "./Card";
-import { FlatList, StyleSheet, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import Getdata from "../db/GetData";
 import { useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -10,49 +10,79 @@ export default function Display({ navigation }) {
   const [Data, setData] = useState([]);
   const [fulldata, setfulldata] = useState([]);
   const isFocused = useIsFocused();
+  const [load, setload] = useState(false);
+  const [refreshing, setrefresh] = useState(false);
 
-  function helper(){
-    Getdata("trip")
-      .then((values) => JSON.parse(values))
-      .then((result) => {
-        if (result !== null) {
-          result.reverse();
-          setData(result);
-          setfulldata(result);
-        } else {
-          setData([]);
-        }
-        return
-      })
-      .catch((e) => console.log(e));
+  async function helper() {
+    try {
+      Getdata("trip")
+        .then((values) => JSON.parse(values))
+        .then((result) => {
+          if (result !== null) {
+            result.reverse();
+            setData(result);
+            setfulldata(result);
+          } else {
+            setData([]);
+          }
+          setrefresh(false);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   useEffect(() => {
-    helper();
+    setload(true);
+    helper()
+      .then(() => {
+        setload(false);
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("something went wrong")
+      });
   }, [isFocused]);
 
-  return (
-    <View style={styles.displaycontainer}>
-      <Searchbar setData={setData} fulldata={fulldata} />
-      <FlatList
-        extraData={Data.length}
-        style={styles.flat}
-        showsVerticalScrollIndicator={false}
-        data={Data}
-        renderItem={({ item }) => (
-          <Card
-            key={item.key}
-            index={item.key}
-            title={item.title}
-            navigation={navigation}
-          />
-        )}
-        keyExtractor={(item) => {
-          return item.key.toString();
+  if (load) {
+    return (
+      <View
+        style={{
+          backgroundColor: "#d5def5",
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      />
-    </View>
-  );
+      >
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.displaycontainer}>
+        <Searchbar setData={setData} fulldata={fulldata} />
+        <FlatList
+          extraData={Data}
+          style={styles.flat}
+          showsVerticalScrollIndicator={false}
+          data={Data}
+          refreshing={refreshing}
+          onRefresh={helper}
+          renderItem={({ item }) => (
+            <Card
+              key={item.key}
+              index={item.key}
+              title={item.title}
+              navigation={navigation}
+            />
+          )}
+          keyExtractor={(item) => {
+            return item.key.toString();
+          }}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

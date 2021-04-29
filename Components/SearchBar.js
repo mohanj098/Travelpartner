@@ -52,7 +52,7 @@ const isfocused=useIsFocused()
         autoCapitalize="none"
         autoCorrect={false}
         value={query}
-        onChangeText={text=>handleSearch(text)}
+        onChangeText={(text)=>{handleSearch(text)}}
         placeholder="SEARCH"
       />
     </View>
