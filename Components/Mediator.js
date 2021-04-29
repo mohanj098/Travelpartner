@@ -40,7 +40,7 @@ export default function Mediate({
         />
       </Modal>
       <ScrollView
-        style={{ flex: 1 }}
+        style={{ flex: 1, marginTop: 15}}
         horizontal={true}
         scrollEventThrottle={16}
         pagingEnabled={true}

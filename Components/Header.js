@@ -41,7 +41,7 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
   header: {
-    height: 45,
+    height: 60,
     marginTop: 0,
     backgroundColor: "#5f38ab",
     width: "100%",
@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
-    fontSize: 25,
+    fontSize: 30,
     marginHorizontal: 15,
+    marginVertical: 15,
     margin: "auto",
     textTransform: "uppercase",
     color: "white",
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flexDirection: "row",
-    height: 45,
+    height: 60,
     marginTop: 0,
     backgroundColor: "#5f38ab",
     width: "100%",

@@ -15,10 +15,10 @@ export default function Add(props) {
 const styles = StyleSheet.create({
     addcontainer: {
         width: '100%',
-        paddingBottom: 20,
-        borderStyle:'dashed',
-        borderBottomWidth:1,
-        marginTop: 50,
+        paddingBottom: 10,
+        borderStyle: 'dotted',
+        borderBottomWidth:2,
+        marginTop: 60,
         alignItems: 'center',
     },
 })

@@ -7,6 +7,7 @@ import {
   View,
   ActivityIndicator,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -30,6 +31,8 @@ const Reviewschema = yup.object({
     .required("Account number is required")
     .typeError("Must be a Number"),
 });
+
+const {width, height} = Dimensions.get('window')
 
 export default function User(props) {
   const [data, setdata] = useState([]);
@@ -282,8 +285,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    borderWidth: 1,
+    borderWidth: 2,
     backgroundColor: "#f0f3fa",
+    marginVertical: (height-600)/2
   },
   usertop: {
     fontSize: 20,

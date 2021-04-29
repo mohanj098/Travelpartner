@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+  Dimensions,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -20,10 +27,14 @@ const Reviewschema = yup.object({
   remarks: yup.string(),
 });
 
+const { width, height } = Dimensions.get("window");
 export default function Mainform(props) {
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.mainformcontainer}>
+        <Text style={{ fontSize: 15, fontWeight: "bold", textTransform: 'uppercase' }}>
+          Travel Expenses
+        </Text>
         <Formik
           initialValues={{
             departuredate: "",
@@ -58,7 +69,13 @@ export default function Mainform(props) {
               remarks: values.remarks.trim(),
               stored: values.stored.trim(),
             };
-            Addmain(finalvalue, props.showmain, props.index, props.extra, props.setextra);
+            Addmain(
+              finalvalue,
+              props.showmain,
+              props.index,
+              props.extra,
+              props.setextra
+            );
           }}
           validationSchema={Reviewschema}
         >
@@ -95,7 +112,7 @@ export default function Mainform(props) {
                     />
                   </View>
                   <View style={styles.drblock}>
-                    <Text style={styles.drblocktext}>Time(24 hour)</Text>
+                    <Text style={styles.drblocktext}>Time(24 hr)</Text>
                     {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Time"
@@ -156,7 +173,7 @@ export default function Mainform(props) {
                     />
                   </View>
                   <View style={styles.drblock}>
-                    <Text style={styles.drblocktext}>Time(24 hour)</Text>
+                    <Text style={styles.drblocktext}>Time(24 hr)</Text>
                     {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Time"
@@ -282,7 +299,7 @@ export default function Mainform(props) {
                   {touched.remarks && errors.remarks}
                 </Text>
               </View>
-              <Button onPress={handleSubmit} title="Submit" />
+              <Button onPress={handleSubmit} title="Submit" color="#129620" />
             </View>
           )}
         </Formik>
@@ -297,6 +314,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     opacity: 0.8,
+    width: "90%",
+    height: height,
+    marginHorizontal: "5%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   mainformtop: {
     fontSize: 25,
@@ -306,7 +328,10 @@ const styles = StyleSheet.create({
   },
   mainformform: {
     marginTop: 10,
-    width: "75%",
+    width: "100%",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20,
   },
   mainforminput: {
     borderColor: "black",

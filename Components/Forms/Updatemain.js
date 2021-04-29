@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import { StyleSheet, Text, TextInput, View, Button, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -22,6 +22,7 @@ const Reviewschema = yup.object({
   remarks: yup.string(),
 });
 
+const {width, height} = Dimensions.get("window")
 export default function Mainform(props) {
   const data=props.data;
   const index=props.index;
@@ -34,6 +35,7 @@ export default function Mainform(props) {
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.mainformcontainer}>
+        <Text style={styles.mainformtop}>Travel Expense</Text>
         <Formik
           initialValues={{
             departuredate: departuredata[0].split('{', 2)[1].split('}', 2)[0],
@@ -117,7 +119,7 @@ export default function Mainform(props) {
                     />
                   </View>
                   <View style={styles.drblock}>
-                    <Text style={styles.drblocktext}>Time(24 hour)</Text>
+                    <Text style={styles.drblocktext}>Time(24 hr)</Text>
                     {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Time"
@@ -178,7 +180,7 @@ export default function Mainform(props) {
                     />
                   </View>
                   <View style={styles.drblock}>
-                    <Text style={styles.drblocktext}>Time(24 hour)</Text>
+                    <Text style={styles.drblocktext}>Time(24 hr)</Text>
                     {/* <TextInput
                       style={styles.mainforminputdeparr}
                       placeholder="Time"
@@ -304,7 +306,7 @@ export default function Mainform(props) {
                   {touched.remarks && errors.remarks}
                 </Text>
               </View>
-              <Button onPress={handleSubmit} title="Submit" />
+              <Button onPress={handleSubmit} title="Submit" color="#129620"/>
             </View>
           )}
         </Formik>
@@ -319,16 +321,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     opacity: 0.8,
+    height: height,
+    width: "100%",
+    justifyContent: "center"
+  
   },
   mainformtop: {
-    fontSize: 25,
-    margin: 5,
+    fontSize: 15,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   mainformform: {
-    marginTop: 10,
-    width: "75%",
+    marginTop: 5,
+    width: "90%",
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
+
   },
   mainforminput: {
     borderColor: "black",

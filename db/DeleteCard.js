@@ -17,8 +17,9 @@ export default async function DeleteCard(index) {
       newdata.push(object);
     }
     // console.log(newdata);
-    AsyncStorage.setItem('trip', JSON.stringify(newdata))
-    return true;
+    AsyncStorage.setItem('trip', JSON.stringify(newdata)).then(()=>{
+      return true
+    })
   })
   .catch(e=>{console.log(e); return false})
 }

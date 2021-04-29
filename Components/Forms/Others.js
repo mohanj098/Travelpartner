@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -14,6 +14,7 @@ const Reviewschema = yup.object({
     .positive("Invalid, Only positive numbers are allowed")
     .required("Amount Paid is required"),
 });
+const { width, height } = Dimensions.get("window");
 
 export default function Others(props) {
   const navigate = props.navigate;
@@ -58,7 +59,7 @@ export default function Others(props) {
           }) => (
             <View style={styles.otherform}>
               <View style={styles.box}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{flexDirection: "row" }}>
                   <Text style={styles.info}>Details</Text>
                   <Text style={{ color: "red" }}>*</Text>
                 </View>
@@ -82,7 +83,7 @@ export default function Others(props) {
                 </Text>
               </View>
               <View style={styles.box}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{ flexDirection: "row" }}>
                   <Text style={styles.info}>Amount Paid(in rupees)</Text>
                   <Text style={{ color: "red" }}>*</Text>
                 </View>
@@ -194,18 +195,23 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
     opacity: 0.8,
+    borderWidth: 1,
+    height: height,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   othertop: {
-    fontSize: 25,
-    marginTop: 20,
+    fontSize: 15,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   otherform: {
-    marginTop: 30,
+    marginTop: 10,
     width: "80%",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20,
   },
   otherinput: {
     borderColor: "black",

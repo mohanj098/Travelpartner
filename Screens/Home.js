@@ -36,7 +36,7 @@ export default function Home() {
         activeTintColor: "#5f38ab",
         activeBackgroundColor: "#fad9f3",
         itemStyle: { marginVertical: 5 },
-        labelStyle:{fontWeight: "bold", fontSize: 16,}
+        labelStyle:{fontWeight: "bold", fontSize: 20,}
       }}
       drawerStyle={{
         backgroundColor: "#d5def5",

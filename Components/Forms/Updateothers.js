@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -22,6 +23,7 @@ const Reviewschema = yup.object({
     .required("Amount Paid is required"),
 });
 
+const {width, height} = Dimensions.get("window")
 export default function Others(props) {
   const index = props.index;
   const subindex = props.subindex;
@@ -80,7 +82,7 @@ export default function Others(props) {
           }) => (
             <View style={styles.otherform}>
               <View style={styles.box}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{flexDirection: "row" }}>
                   <Text style={styles.info}>Details</Text>
                   <Text style={{ color: "red" }}>*</Text>
                 </View>
@@ -104,7 +106,7 @@ export default function Others(props) {
                 </Text>
               </View>
               <View style={styles.box}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{  flexDirection: "row" }}>
                   <Text style={styles.info}>Amount Paid(in rupees)</Text>
                   <Text style={{ color: "red" }}>*</Text>
                 </View>
@@ -219,16 +221,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     opacity: 0.8,
+    width: "100%",
+    height: height,
+    justifyContent: "center",
   },
   othertop: {
-    fontSize: 25,
-    marginTop: 20,
+    fontSize: 15,
     fontWeight: "bold",
     textTransform: "uppercase",
+    marginBottom: 5,
+
   },
   otherform: {
-    marginTop: 30,
     width: "80%",
+    borderRadius: 20,
+    borderWidth: 1,
+    padding: 10,
   },
   otherinput: {
     borderColor: "black",
