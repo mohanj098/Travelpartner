@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { Alert, StyleSheet } from "react-native";
+import {  StyleSheet } from "react-native";
 import ActionButton from "react-native-action-button";
 import * as print from "expo-print";
 import Html from "./Html";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import ActionButton from "react-native-action-button";
 import { StyleSheet } from "react-native";
 

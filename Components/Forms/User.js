@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,8 +14,6 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import StoreData from "../../db/StoreData";
 import Getdata from "../../db/GetData";
-import { useState, useEffect } from "react";
-import { acc } from "react-native-reanimated";
 
 const Reviewschema = yup.object({
   name: yup.string().required("Name is required"),

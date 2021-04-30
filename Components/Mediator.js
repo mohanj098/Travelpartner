@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import { Text, View, StyleSheet, Dimensions, Modal } from "react-native";
+import { View, StyleSheet, Dimensions, Modal } from "react-native";
 import Action from "./Action";
 import Othertable from "./Othertable.js";
 import { ScrollView } from "react-native-gesture-handler";
 import Maintable from "./Maintable";
 import Print from "./Print";
-import { useEffect, useState } from "react/cjs/react.development";
 import Confirmation from "./Confirmation";
 
 export default function Mediate({

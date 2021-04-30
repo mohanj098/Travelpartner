@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Addother from "../../db/Addother";
-import { useState } from "react";
 
 const Reviewschema = yup.object({
   detail: yup.string().required(),

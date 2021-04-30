@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import Getdata from "../db/GetData";
-import { useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import Searchbar from "./SearchBar";
 

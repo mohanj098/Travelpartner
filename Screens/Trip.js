@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header';
-import { Text, View, StyleSheet, StatusBar } from 'react-native'
+import {View, StyleSheet, StatusBar } from 'react-native'
 import Tripover from '../Components/Forms/Tripoverview';
 
 export default function Trip({navigation}) {

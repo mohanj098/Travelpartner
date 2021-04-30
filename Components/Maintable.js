@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -16,7 +16,6 @@ import {
   TableWrapper,
   Cell,
 } from "react-native-table-component";
-import { useEffect, useState } from "react/cjs/react.development";
 import Deleterow from "../db/Deleterow";
 import Updateform from "./Forms/Updatemain";
 

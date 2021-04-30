@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, TextInput } from "react-native";
 import { filter } from "lodash";
-import { useEffect, useState } from "react/cjs/react.development";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function Searchbar(props) {

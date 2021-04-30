@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Dimensions, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import DeleteCard from "../db/DeleteCard";
 
 

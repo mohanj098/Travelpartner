@@ -2,20 +2,15 @@ import React from "react";
 import Header from "../Components/Header";
 import Display from "../Components/Display";
 import Add from "../Components/Add";
-import { View, StatusBar, StyleSheet, Text, Button } from "react-native";
+import { View, StatusBar, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from "./Profile";
 import Backup from "./Backup"
-import { useEffect } from "react/cjs/react.development";
 import { useIsFocused } from "@react-navigation/core";
 
 const Drawer = createDrawerNavigator();
 
 function Main({ navigation }) {
-  const isFocused = useIsFocused();
-  useEffect(()=>{
-    
-  }, [isFocused])
   return (
     <View style={styles.homecontainer}>
       <Header

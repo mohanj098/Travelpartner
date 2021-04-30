@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import {
   ActivityIndicator,
@@ -10,7 +10,6 @@ import {
   StatusBar,
 } from "react-native";
 import GetData from "../db/GetData";
-import { useEffect, useState } from "react/cjs/react.development";
 import ActionButton from "react-native-action-button";
 import { MaterialIcons } from "@expo/vector-icons";
 import User from "../Components/Forms/User";

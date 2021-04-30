@@ -1,6 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
-import { linear } from "react-native/Libraries/Animated/src/Easing";
 
 export default async function DeleteCard(index) {
   AsyncStorage.getItem("trip").then(Data=>JSON.parse(Data))
