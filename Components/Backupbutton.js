@@ -4,14 +4,15 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import Getall from "../db/Getall";
 
+
 function alldata(){
   Getall().then((result)=> console.log(result))
   .catch(e=>console.log(e));
 }
 
-export default function BackupButton() {
+export default function BackupButton(props) {
   return (
-    <TouchableOpacity style={styles.backupcontainer} activeOpacity={0.5} onPress={alldata}>
+    <TouchableOpacity style={styles.backupcontainer} activeOpacity={0.5} onPress={props.onPress}>
       <FontAwesome name="cloud-upload" size={40} color="black" />
       <Text> BACKUP</Text>
     </TouchableOpacity>

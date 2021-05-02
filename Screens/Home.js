@@ -6,8 +6,6 @@ import { View, StatusBar, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from "./Profile";
 import Backup from "./Backup"
-import { useIsFocused } from "@react-navigation/core";
-
 const Drawer = createDrawerNavigator();
 
 function Main({ navigation }) {

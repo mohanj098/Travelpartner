@@ -1,10 +1,37 @@
-import React from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Modal, StatusBar, StyleSheet, Text, View } from "react-native";
 import Header from "../Components/Header";
 import Backupbutton from "../Components/Backupbutton";
 import Uploadbutton from "../Components/Downloadbutton";
+import GetData from "../db/GetData";
+import Login from "../Components/Login";
 
 export default function Backup({ navigation }) {
+  const [auth, setauth] = useState(true);
+  const [user, setuser] = useState("");
+  useEffect(() => {
+    GetData("authtoken").then((res) => {
+      if (res !== null) {
+        setauth(true);
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          `Bearer ${res}`
+        );
+        fetch("https://www.googleapis.com/oauth2/v1/userinfo", {
+          method: "GET",
+          headers: myHeaders,
+          redirect:'follow'
+        })
+          .then((result) => result.json())
+          .then(Response=>{setuser((Response.given_name))})
+          .catch((e) => console.log(e));
+      } else {
+        setauth(false);
+      }
+    });
+  }, []);
+
   return (
     <View style={styles.backupcontainer}>
       <Header
@@ -12,11 +39,15 @@ export default function Backup({ navigation }) {
         button={true}
         onPress={() => navigation.toggleDrawer()}
       />
+      <Modal visible={!auth}>
+        <Login setshow={setauth} />
+      </Modal>
+      <Text style={styles.greet}>Hi {user}</Text>
       <View style={styles.buttoncontainer}>
-        <Backupbutton />
-        <Uploadbutton/>
+        <Backupbutton/>
+        <Uploadbutton />
       </View>
-      <StatusBar style={{backgroundColor: "#7242cf"}} />
+      <StatusBar style={{ backgroundColor: "#7242cf" }} />
     </View>
   );
 }
@@ -31,6 +62,12 @@ const styles = StyleSheet.create({
     height: 400,
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 100
   },
+  greet:{
+    textAlign: "center",
+    marginTop:  100,
+    fontSize: 25,
+    fontWeight: "bold",
+    textTransform: "capitalize"
+  }
 });
