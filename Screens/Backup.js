@@ -6,12 +6,14 @@ import Uploadbutton from "../Components/Downloadbutton";
 import GetData from "../db/GetData";
 import Login from "../Components/Login";
 
+
 export default function Backup({ navigation }) {
   const [auth, setauth] = useState(true);
   const [user, setuser] = useState("");
   useEffect(() => {
     GetData("authtoken").then((res) => {
       if (res !== null) {
+        console.log(res)
         setauth(true);
         var myHeaders = new Headers();
         myHeaders.append(
@@ -24,8 +26,16 @@ export default function Backup({ navigation }) {
           redirect:'follow'
         })
           .then((result) => result.json())
-          .then(Response=>{setuser((Response.given_name))})
-          .catch((e) => console.log(e));
+          .then(Response=>{
+            if(Response.error){
+              alert("It seems your login has expired please login")
+              setauth(false);
+            }
+            else{
+              setuser(Response.given_name)
+            }
+
+          })
       } else {
         setauth(false);
       }
@@ -39,13 +49,13 @@ export default function Backup({ navigation }) {
         button={true}
         onPress={() => navigation.toggleDrawer()}
       />
-      <Modal visible={!auth}>
+      <Modal visible={!auth} onRequestClose={()=>{setauth(true)}}>
         <Login setshow={setauth} />
       </Modal>
       <Text style={styles.greet}>Hi {user}</Text>
       <View style={styles.buttoncontainer}>
-        <Backupbutton/>
-        <Uploadbutton />
+        <Backupbutton setauth={setauth}/>
+        <Uploadbutton/>
       </View>
       <StatusBar style={{ backgroundColor: "#7242cf" }} />
     </View>
