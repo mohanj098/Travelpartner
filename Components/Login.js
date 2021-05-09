@@ -57,23 +57,24 @@ export default function Login({ setshow }) {
         headers: myHeaders,
         redirect: "follow",
       })
-      .then(response=>response.json())
-      .then(data=>{
-        StoreData('username', data.given_name).then(
-          StoreData('useremail', data.email).then(
-            setshow(true)
-          )
-        )
-      })
-      .catch(e=>console.log(e))
+        .then((response) => response.json())
+        .then((data) => {
+          StoreData("username", data.given_name).then(
+            StoreData("useremail", data.email).then(setshow(true))
+          );
+        })
+        .catch((e) => console.log(e));
     } else {
       console.log(response);
     }
-  }, []);
+  }, [response]);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => promptAsync()} activeOpacity={0.8}>
+      <TouchableOpacity
+        onPress={() => promptAsync().then(console.log("done"))}
+        activeOpacity={0.8}
+      >
         <Image
           style={styles.googlelogo}
           source={require("../assets/google.png")}

@@ -60,8 +60,7 @@ export default function Backup({ navigation }) {
   };
   useEffect(() => {
     getuser();
-    console.log(auth)
-  }, []);
+  }, [auth]);
 
   if (load) {
     return (
