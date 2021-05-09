@@ -19,7 +19,7 @@ export default function Othertable({ data, index, extra, setextra }) {
     "Amount Paid",
     "Receipt Details (to be shared)",
     "Payment details",
-    "Recipt's Location",
+    "Receipt's Location",
     "",
   ];
   const { width, height } = Dimensions.get("window");
@@ -47,7 +47,7 @@ export default function Othertable({ data, index, extra, setextra }) {
 
   const editbutton = (data, subindex) => {
     return (
-      <View style={{ flex: 1, flexDirection: "column" }}>
+      <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
         <TouchableOpacity
           style={styles.editbutton}
           onPress={() => {
@@ -127,6 +127,10 @@ export default function Othertable({ data, index, extra, setextra }) {
           ))}
         </Table>
       </ScrollView>
+      <View style={styles.maintotal}>
+        <Text style={{fontSize: 15, color: "red"}}>Total Other Expense:</Text>
+        <Text style={{fontSize: 15, color: "green", marginLeft: 5}}>{data.othertotal}</Text>
+      </View>
     </View>
   );
 }
@@ -154,6 +158,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginBottom: 10,
+  },
+  maintotal:{
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: "center"
   },
   row: {
     flex: 1,

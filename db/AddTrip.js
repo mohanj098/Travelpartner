@@ -6,7 +6,7 @@ const Addtrip = async (value) => {
         if(!newtrip) {
           newtrip=[]
         }
-        const data={key:newtrip.length , title: value.title, main: '', other: '' }
+        const data={key:newtrip.length , title: value.title, main: '', other: '', total:0, maintotal:0, othertotal:0}
         newtrip.push(data);
         await AsyncStorage.setItem('trip', JSON.stringify(newtrip));
         return true;

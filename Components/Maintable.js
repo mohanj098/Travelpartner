@@ -29,14 +29,13 @@ export default function Maintable({ data, index, extra, setextra }) {
     "Fare",
     "Ticket no.",
     "remarks",
-    "Other details\n(for your refrence)",
+    "Other details\n(for your reference)",
     "",
   ];
   const [update, setupdate] = useState([false, null, null]);
-  //show, index, data
   const editbutton = (data, subindex) => {
     return (
-      <View style={{ flex: 1, flexDirection: "column" }}>
+      <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
         <TouchableOpacity
           style={styles.editbutton}
           onPress={() => {
@@ -64,7 +63,7 @@ export default function Maintable({ data, index, extra, setextra }) {
     );
   };
   const [rowdata, setrowdata] = useState([]);
-  const widtharr = [55, 40, 40, 50, 24, 35, 48, 45, 32];
+  const widtharr = [55, 42, 40, 50, 24, 35, 48, 45, 32];
   useEffect(() => {
     let rowdata0 = [];
     const main = data.main;
@@ -130,15 +129,15 @@ export default function Maintable({ data, index, extra, setextra }) {
         <Table
           style={{
             backgroundColor: "white",
-            width: 369,
-            marginHorizontal: (width - 369) / 2,
+            width: 371,
+            marginHorizontal: (width - 371) / 2,
           }}
           height={200}
           borderStyle={{ borderWidth: 2, borderColor: "grey" }}
         >
           <Row
             data={tablehead}
-            widthArr={[55, 40, 40, 50, 24, 35, 48, 45, 32]}
+            widthArr={[55, 42, 40, 50, 24, 35, 48, 45, 32]}
             height={55}
             textStyle={styles.otherheadtext}
           />
@@ -158,6 +157,10 @@ export default function Maintable({ data, index, extra, setextra }) {
           ))}
         </Table>
       </ScrollView>
+      <View style={styles.maintotal}>
+        <Text style={{fontSize: 15, color: "red"}}>Total Travelling Expense:</Text>
+        <Text style={{fontSize: 15, color: "green", marginLeft: 5}}>{data.maintotal}</Text>
+      </View>
     </View>
   );
 }
@@ -192,6 +195,11 @@ const styles = StyleSheet.create({
     margin: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  maintotal:{
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: "center"
   },
   row: {
     flex: 1,

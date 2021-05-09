@@ -74,6 +74,8 @@ export default function Mainform(props) {
               .then((value) => JSON.parse(value))
               .then((result) => {
                 var value=result;
+                value[index].maintotal+=(parseInt(finalvalue.fare) - parseInt(data[4]));
+                value[index].total+=(parseInt(finalvalue.fare) - parseInt(data[4]));
                 value[index].main[subindex]=finalvalue;
                 AsyncStorage.setItem('trip', JSON.stringify(value)).then(()=>{setextra(!extra); setupdate([false, null, null])})
                 .catch(e=>console.log(e));

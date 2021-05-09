@@ -1,73 +1,26 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import Getall from "../db/Getall";
 import GetData from "../db/GetData";
-import { cos } from "react-native-reanimated";
-
-function alldata() {
-  Getall()
-    .then((result) => console.log(result))
-    .catch((e) => console.log(e));
-}
+import firebase from "firebase";
+import "firebase/firestore";
 
 async function backup(setauth) {
-  GetData("authtoken").then((res) => {
-    if (res !== null) {
-      var myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${res}`);
-      myHeaders.append("Content-Type", "application/json");
-      // var raw = JSON.stringify({
-      //   name: "TravelPartner_Backup",
-      // });
-      GetData("trip").then((trip) => {
-        const url = `https://www.googleapis.com/drive/v3/files`;
-        var raw = JSON.stringify({
-          "name": "hello1"
+  GetData("useremail")
+    .then((useremail) => JSON.parse(useremail))
+    .then((email) => {
+      GetData("trip")
+        .then((trip) => JSON.parse(trip))
+        .then((res) => {
+          firebase
+            .firestore()
+            .collection("backup")
+            .doc(email)
+            .set({ data: res })
+            .then(console.log("done"))
+            .catch((e) => console.log(e));
         });
-        fetch(url, {
-          method: "POST",
-          headers: myHeaders,
-          data: raw,
-          redirect :"follow"
-        })
-        .then(comes=>comes.json())
-        .then(what=>console.log(what))
-        .catch(e=>{console.log(e); alert("Something Went Wrong try again")})
-      // fetch("https://www.googleapis.com/drive/v3/files", {
-      //   method: "POST",
-      //   headers: myHeaders,
-      //   redirect: "follow",
-      //   body: raw,
-      // })
-      //   .then((result) => result.json())
-      //   .then((Response) => {
-      //     console.log(Response);
-      //     if (Response.error) {
-      //       alert("It seems your login has expired please login");
-      //       setauth(false);
-      //     } else {
-      //       GetData("trip").then((res) => {
-      //         const url = `https://www.googleapis.com/upload/drive/v3/files/${Response.id}`;
-      //         //console.log(res);
-      //         var shaw = JSON.stringify(res)
-      //         fetch(url, {
-      //           method: "PATCH",
-      //           headers: myHeaders,
-      //           data: {shaw},
-      //           redirect :"follow"
-      //         }).then(comes=>comes.json())
-      //         .then(what=>console.log(what))
-      //         .catch(e=>{console.log(e); alert("Something Went Wrong try again")})
-      //       });
-      //       console.log("done");
-      //     }
-        })
-        .catch((e) => console.log(e));
-    } else {
-      setauth(false);
-    }
-  });
+    });
 }
 
 export default function BackupButton(props) {

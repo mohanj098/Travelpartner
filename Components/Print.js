@@ -29,7 +29,7 @@ const createpdf = async (html) => {
 };
 
 
-const Print = ({ data, index, navigation, setshowdelete }) => {
+const Print = ({ data, navigation, setshowdelete }) => {
   return (
     <ActionButton
       position="left"
@@ -47,7 +47,7 @@ const Print = ({ data, index, navigation, setshowdelete }) => {
             .then((results) => JSON.parse(results))
             .then((result) => {
               createpdf(
-                Html(Maintablehtml(data), Othertablehtml(data), result)
+                Html(Maintablehtml(data), Othertablehtml(data), result, data)
               ).then((response) => {
                 console.log(response);
               });

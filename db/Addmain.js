@@ -10,6 +10,8 @@ export default function Addmain(values, showmain, index, extra, setextra) {
           newdata[index].main=[];
         }
         newdata[index].main.push(values);
+        newdata[index].maintotal=newdata[index].maintotal+parseInt(values.fare);
+        newdata[index].total=newdata[index].total+parseInt(values.fare)
         AsyncStorage.setItem('trip', JSON.stringify(newdata)).then(()=>{
           setextra(!extra);
           showmain(false);

@@ -73,6 +73,7 @@ export default function Display({ navigation }) {
               index={item.key}
               title={item.title}
               navigation={navigation}
+              total={item.total}
             />
           )}
           keyExtractor={(item) => {

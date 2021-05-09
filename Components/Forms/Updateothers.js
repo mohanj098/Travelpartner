@@ -61,6 +61,8 @@ export default function Others(props) {
               .then((value) => JSON.parse(value))
               .then((result) => {
                 var value=result;
+                value[index].othertotal+=(parseInt(finalvalue.amountpaid) - parseInt(indata[1]));
+                value[index].total+=(parseInt(finalvalue.amountpaid) - parseInt(indata[1]));
                 value[index].other[subindex]=finalvalue;
                 AsyncStorage.setItem('trip', JSON.stringify(value)).then(()=>{setextra(!extra); setupdate([false, null, null])})
                 .catch(e=>console.log(e));

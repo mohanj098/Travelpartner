@@ -10,6 +10,8 @@ export default function Addother(values, showother, index, extra, setextra) {
           newdata[index].other=[];
         }
         newdata[index].other.push(values);
+        newdata[index].othertotal=newdata[index].othertotal+parseInt(values.amountpaid);
+        newdata[index].total=newdata[index].total+parseInt(values.amountpaid)
         AsyncStorage.setItem('trip', JSON.stringify(newdata)).then((value)=>{
           setextra(!extra);
           showother(false)

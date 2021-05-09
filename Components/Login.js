@@ -11,40 +11,65 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { ANDROID_CLIENT_ID, WEB_CLIENT_ID } from "@env";
 import StoreData from "../db/StoreData";
-import * as AuthSession from "expo-auth-session"
+import * as AuthSession from "expo-auth-session";
+import firebase, { auth } from "firebase";
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
+
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: API_KEY,
+    authDomain: AUTH_DOMAIN,
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET,
+    appId: APP_ID,
+    measurementId: MEASUREMENT_ID,
+  });
+}
 
 WebBrowser.maybeCompleteAuthSession();
 
 const { width, height } = Dimensions.get("window");
 
 export default function Login({ setshow }) {
-  const redirectUri= AuthSession.makeRedirectUri({native: 'myapp/oauthredirect', useProxy: true});
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "615841166081-huvhd1k6p8ie6033caccalp89dkca4lt.apps.googleusercontent.com",
-    androidClientId:ANDROID_CLIENT_ID,
-    webClientId : WEB_CLIENT_ID,
-    scopes: [
-      "https://www.googleapis.com/auth/drive.appdata",
-      "https://www.googleapis.com/auth/drive.file",
-      "https://www.googleapis.com/auth/drive.apps.readonly",
-      "https://www.googleapis.com/auth/drive",
-      "profile",
-      "email",
-    ],
-
+    androidClientId: ANDROID_CLIENT_ID,
+    webClientId: WEB_CLIENT_ID,
+    scopes: ["profile", "email"],
   });
   React.useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      console.log(response);
-      StoreData("authtoken", authentication.accessToken).then(() => {
-        setshow(false);
-      });
+      const res = authentication.accessToken;
+      console.log(authentication);
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${res}`);
+      fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      })
+      .then(response=>response.json())
+      .then(data=>{
+        StoreData('username', data.given_name).then(
+          StoreData('useremail', data.email).then(
+            setshow(true)
+          )
+        )
+      })
+      .catch(e=>console.log(e))
     } else {
       console.log(response);
     }
-  }, [response]);
+  }, []);
 
   return (
     <View style={styles.container}>

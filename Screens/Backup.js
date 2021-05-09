@@ -1,65 +1,103 @@
 import React, { useState, useEffect } from "react";
-import { Modal, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Modal,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Header from "../Components/Header";
 import Backupbutton from "../Components/Backupbutton";
 import Uploadbutton from "../Components/Downloadbutton";
 import GetData from "../db/GetData";
 import Login from "../Components/Login";
+import firebase from "firebase/app";
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
 
+const firebaseConfig = {
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
+};
+
+if (!firebase.app.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default function Backup({ navigation }) {
   const [auth, setauth] = useState(true);
   const [user, setuser] = useState("");
-  useEffect(() => {
-    GetData("authtoken").then((res) => {
-      if (res !== null) {
-        console.log(res)
-        setauth(true);
-        var myHeaders = new Headers();
-        myHeaders.append(
-          "Authorization",
-          `Bearer ${res}`
-        );
-        fetch("https://www.googleapis.com/oauth2/v1/userinfo", {
-          method: "GET",
-          headers: myHeaders,
-          redirect:'follow'
-        })
-          .then((result) => result.json())
-          .then(Response=>{
-            if(Response.error){
-              alert("It seems your login has expired please login")
-              setauth(false);
-            }
-            else{
-              setuser(Response.given_name)
-            }
+  const [load, setload] = useState(true);
 
-          })
-      } else {
-        setauth(false);
-      }
-    });
+  const getuser = () => {
+    setload(true);
+    GetData("username")
+      .then((u) => {
+        if (u !== null) {
+          const username = JSON.parse(u);
+          setuser(username);
+          setload(false);
+        } else {
+          setauth(false);
+          setload(false);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setload(false);
+      });
+  };
+  useEffect(() => {
+    getuser();
+    console.log(auth)
   }, []);
 
-  return (
-    <View style={styles.backupcontainer}>
-      <Header
-        title="BACKUP AND RESTORE"
-        button={true}
-        onPress={() => navigation.toggleDrawer()}
-      />
-      <Modal visible={!auth} onRequestClose={()=>{setauth(true)}}>
-        <Login setshow={setauth} />
-      </Modal>
-      <Text style={styles.greet}>Hi {user}</Text>
-      <View style={styles.buttoncontainer}>
-        <Backupbutton setauth={setauth}/>
-        <Uploadbutton/>
+  if (load) {
+    return (
+      <View
+        style={{
+          backgroundColor: "#d5def5",
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" color="#5500dc" />
       </View>
-      <StatusBar style={{ backgroundColor: "#7242cf" }} />
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View style={styles.backupcontainer}>
+        <Header
+          title="BACKUP AND RESTORE"
+          button={true}
+          onPress={() => navigation.toggleDrawer()}
+        />
+        {auth ? (
+          <View>
+            <Text style={styles.greet}>Hi {user}</Text>
+            <View style={styles.buttoncontainer}>
+              <Backupbutton setauth={setauth} />
+              <Uploadbutton />
+            </View>
+          </View>
+        ) : (
+          <Login setshow={setauth}/>
+        )}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -73,11 +111,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  greet:{
+  greet: {
     textAlign: "center",
-    marginTop:  100,
+    marginTop: 100,
     fontSize: 25,
     fontWeight: "bold",
-    textTransform: "capitalize"
-  }
+    textTransform: "capitalize",
+  },
 });

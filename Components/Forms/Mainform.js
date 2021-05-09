@@ -22,7 +22,7 @@ const Reviewschema = yup.object({
     .typeError("Must be a Number")
     .positive("Invalid, Only positive numbers are allowed")
     .required("Distance is required"),
-  fare: yup.string().required("Fare is required"),
+  fare: yup.number().typeError("must be a number").required("Fare is required"),
   pnr: yup.string().required("PNR is required"),
   remarks: yup.string(),
 });
@@ -275,7 +275,7 @@ export default function Mainform(props) {
                 </Text>
               </View>
               <View style={styles.block}>
-                <Text style={styles.info}>Remarks(is any)</Text>
+                <Text style={styles.info}>Remarks(if any)</Text>
                 <TextInput
                   style={styles.mainforminput}
                   placeholder="Any Remarks"
@@ -286,7 +286,7 @@ export default function Mainform(props) {
               </View>
               <View style={styles.block}>
                 <Text style={styles.info}>
-                  Ticket Information(For your Refrence only)
+                  Ticket Information(For your Reference only)
                 </Text>
                 <TextInput
                   style={styles.mainforminput}

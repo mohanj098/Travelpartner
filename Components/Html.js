@@ -1,7 +1,6 @@
 import React from "react";
 
-
-const htmlContent = (main, other, user) => {
+const htmlContent = (main, other, user, data) => {
   return `
   
   <!DOCTYPE html>
@@ -83,11 +82,11 @@ const htmlContent = (main, other, user) => {
              <p id="profilerowvalue">${user.ecode}</p>
          </div>
          <div id="profilerow">
-             <p id="profilerowlabel">Basic pay(with rupees):</p>
-             <p id="profilerowvalue">${user.pay}</p>
+             <p id="profilerowlabel">Basic pay:</p>
+             <p id="profilerowvalue">${user.pay} ₹</p>
          </div>
          <div id="profilerow">
-             <p id="profilerowlabel">Accout number:</p>
+             <p id="profilerowlabel">Account number:</p>
              <p id="profilerowvalue">${user.account}</p>
          </div>
       </div>
@@ -133,6 +132,7 @@ const htmlContent = (main, other, user) => {
                 ${main}
               </tbody>
           </table>
+          <h3>Total Travel Expense: ${data.maintotal}</h3>
       </div>
       <div style="margin-top:100px">
           <p id="heading">OTHER EXPENSES</p>
@@ -142,7 +142,7 @@ const htmlContent = (main, other, user) => {
                       Details
                   </th>
                   <th style="width:20%">
-                      Fare
+                      AmountPaid
                   </th>
                   <th style="width:50%">
                       Remarks
@@ -152,6 +152,7 @@ const htmlContent = (main, other, user) => {
                     ${other}
               </tbody>
           </table>
+          <h3>Total Other Expense: ${data.othertotal}</h3>
       </div>
       <div style="margin-top:80px">
           <h4>Certified that</h4>
@@ -167,28 +168,16 @@ const htmlContent = (main, other, user) => {
           </ul>
       </div>
       <div style="display: flex; justify-content: flex-end;width: 95%; margin-top:80px;">
+          <h3>Total Amount to be reimbursed: ${data.total} </h3>
           <p>Signature of the claimant with date</p>
       </div>
       <div>
+          <h3>Total Amount to be reimbursed: ${data.total} </h3>
           <p>No. of enclosures: __________________________________________</p>
           <p>Journey verified and forwarded </p>
           <br/><br/>
           <p>Signature of HOD/PI with date</p>
       </div>
-      <script type="text/javascript">
-        var other=[{detail: "hello", amountpaid: '1', receipt: "ok"}, {detail: "hello", amountpaid: '1', receipt: "ok"} ]
-        buildmain(other)
-        
-        function buildmain(indata){
-            var Table=document.getElementById('othertable')
-            for(var i=0;i<indata.length; i++){
-                var row = "<tr><td>" + indata[i].detail + "</td><td>" + indata[i].amountpaid+"</td><td>"+indata[i].receipt+"</td></tr>"
-              Table.innerHTML +=row
-
-            }
-        }
-        
-        </script>
   </body>
   </html>
   

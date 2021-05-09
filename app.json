@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#d5def5"
       },
-      "package": "com.lolitis098.TravelPartner"
+      "package": "com.lolitis098.TravelPartner",
+      "googleServicesFile": "./android/app/google-services.json"
     },
     "web": {
       "favicon": "./assets/icon.png"

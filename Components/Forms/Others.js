@@ -128,7 +128,7 @@ export default function Others(props) {
               </View>
               <View style={styles.box}>
                 <Text style={styles.info}>
-                  Payment Details(for your refrence only)
+                  Payment Details(for your reference only)
                 </Text>
                 <TextInput
                   style={
