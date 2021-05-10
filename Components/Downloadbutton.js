@@ -1,57 +1,104 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import firebase from "firebase";
 import "firebase/firestore";
 import GetData from "../db/GetData";
 import StoreData from "../db/StoreData";
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
 
-const download = async () => {
-  GetData("useremail")
-    .then((useremail) => JSON.parse(useremail))
-    .then((email) => {
-      firebase
-        .firestore()
-        .collection("backup")
-        .doc(email)
-        .get()
-        .then((ref) => {
-          GetData("trip")
-            .then((res) => JSON.parse(res))
-            .then((trip) => {
-              let result = trip;
-              var len = result.length;
-              var i = 0;
-              const array = ref.data().data;
-              for (; i < array.length; i++) {
-                var object = {
-                  key: len,
-                  main: array[i].main,
-                  other: array[i].other,
-                  title: array[i].title,
-                };
-                len++;
-                result.push(object);
-              }
-              StoreData("trip", result).then(console.log("done"));
-            });
-        });
-    });
+const firebaseConfig = {
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
-export default function RestoreButton() {
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+
+const download = async () => {
+  try {
+    const useremail = await GetData("useremail");
+    const email = JSON.parse(useremail);
+    const result = await firebase
+      .firestore()
+      .collection("backup")
+      .doc(email)
+      .get();
+    if (result.data()) {
+      const trip1 = await GetData("trip");
+      let trip;
+      if (!trip1) {
+        trip = [];
+      } else {
+        trip = JSON.parse(trip1);
+      }
+      var len = trip.length;
+      var i = 0;
+      const array = result.data().data;
+      for (; i < array.length; i++) {
+        var object = {
+          key: len,
+          main: array[i].main,
+          other: array[i].other,
+          title: array[i].title,
+          total: array[i].total,
+          maintotal: array[i].maintotal,
+          othertotal: array[i].othertotal,
+        };
+        len++;
+        trip.push(object);
+      }
+      await StoreData("trip", trip);
+      const dateobject = new Date();
+      const date =
+        dateobject.getDate() +
+        "/" +
+        (dateobject.getMonth() + 1) +
+        "/" +
+        dateobject.getFullYear() +
+        " " +
+        dateobject.getHours() +
+        ":" +
+        dateobject.getMinutes();
+      const lastrestore = JSON.stringify(date);
+      await StoreData("lastrestore", lastrestore)
+      alert("data restored successfully");
+    } else {
+      alert("Sorry, You have no backup! Backup now to avoid data loss");
+    }
+  } catch (e) {
+    console.log(e);
+    alert("something went wrong");
+  }
+};
+
+export default function RestoreButton({ getuser, setdoing }) {
   return (
     <TouchableOpacity
       style={styles.backupcontainer}
       activeOpacity={0.5}
       onPress={() => {
         download()
-          .then(console.log("ok"))
-          .catch((e) => console.log(e));
+          .then(() => {
+            getuser();
+            setdoing(false);
+          })
+          .catch(setdoing(false));
       }}
     >
-      <FontAwesome name="cloud-download" size={40} color="black" />
-      <Text>RESTORE</Text>
+      <Text style={{ fontWeight: "bold" }}>RESTORE</Text>
     </TouchableOpacity>
   );
   x;
@@ -61,13 +108,11 @@ const styles = StyleSheet.create({
   backupcontainer: {
     borderWidth: 1,
     borderColor: "black",
-    width: "50%",
-    justifyContent: "space-around",
-    borderRadius: 10,
-    height: "10%",
-    flexDirection: "row",
-    backgroundColor: "#8df293",
+    width: 150,
+    justifyContent: "center",
+    backgroundColor: "#5cb85c",
+    borderRadius: 5,
     alignItems: "center",
-    marginVertical: 15,
+    height: 40,
   },
 });

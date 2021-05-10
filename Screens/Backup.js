@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   ActivityIndicator,
+  Dimensions,
   Modal,
-  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -10,9 +10,9 @@ import {
 import Header from "../Components/Header";
 import Backupbutton from "../Components/Backupbutton";
 import Uploadbutton from "../Components/Downloadbutton";
+import { FontAwesome } from "@expo/vector-icons";
 import GetData from "../db/GetData";
-import Login from "../Components/Login";
-import firebase from "firebase/app";
+import firebase from "firebase";
 import {
   API_KEY,
   AUTH_DOMAIN,
@@ -21,6 +21,7 @@ import {
   APP_ID,
   MEASUREMENT_ID,
 } from "@env";
+import Login from "../Components/Login";
 
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -31,36 +32,42 @@ const firebaseConfig = {
   measurementId: MEASUREMENT_ID,
 };
 
-if (!firebase.app.length) {
+if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
+
+const { width, height } = Dimensions.get("window");
 
 export default function Backup({ navigation }) {
   const [auth, setauth] = useState(true);
   const [user, setuser] = useState("");
   const [load, setload] = useState(true);
-
-  const getuser = () => {
+  const [doing, setdoing] = useState(false);
+  const [lastbackup, setlastback] = useState("never");
+  const [lastrestore, setlastrestore] = useState("never");
+  const getuser = async () => {
     setload(true);
-    GetData("username")
-      .then((u) => {
-        if (u !== null) {
-          const username = JSON.parse(u);
-          setuser(username);
-          setload(false);
-        } else {
-          setauth(false);
-          setload(false);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        setload(false);
-      });
+    const username = await GetData("username");
+    const last = await GetData("lastbackup");
+    const lastre = await GetData("lastrestore");
+    if (!username) {
+      setauth(false);
+    }
+    if (last) {
+      const lastback = JSON.parse(last);
+      setlastback(lastback);
+    }
+    if (lastre) {
+      const lastres = JSON.parse(lastre);
+      setlastrestore(lastres);
+    }
+    const name = JSON.parse(username);
+    setuser(name);
+    setload(false);
   };
   useEffect(() => {
     getuser();
-  }, [auth]);
+  }, []);
 
   if (load) {
     return (
@@ -83,16 +90,71 @@ export default function Backup({ navigation }) {
           button={true}
           onPress={() => navigation.toggleDrawer()}
         />
+        <Modal
+          visible={doing}
+          transparent={true}
+          style={{ justifyContent: "center", alignItems: "center" }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size="large" color="#5500dc" />
+          </View>
+        </Modal>
         {auth ? (
-          <View>
-            <Text style={styles.greet}>Hi {user}</Text>
-            <View style={styles.buttoncontainer}>
-              <Backupbutton setauth={setauth} />
-              <Uploadbutton />
+          <View style={styles.afterheader}>
+            <View style={styles.uppercontainer}>
+              <Text style={styles.greet}>Hi {user}</Text>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ marginLeft: 20 }}>
+                  <FontAwesome name="cloud-upload" size={30} color="black" />
+                </View>
+                <View style={{ marginLeft: 20 }}>
+                  <Text style={{ fontWeight: "bold" }}>Last backup</Text>
+                  <View style={styles.backupdesc}>
+                    <Text style={{ fontSize: 12 }}>
+                      Backup data related to your trips. You can restore them by
+                      signing in with the same email.
+                    </Text>
+                  </View>
+                  <Text style={{ marginVertical: 10 }}>
+                    Last backup: {lastbackup}
+                  </Text>
+                  <Backupbutton setdoing={setdoing} getuser={getuser} />
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                borderTopWidth: 2,
+                height: (height - 60) / 2,
+                flexDirection: "row",
+              }}
+            >
+              <View style={{ marginTop: 20, marginLeft: 20 }}>
+                <FontAwesome name="cloud-download" size={30} color="black" />
+              </View>
+              <View style={{ marginTop: 20, marginLeft: 20 }}>
+                <Text style={{ fontWeight: "bold" }}>Last restore</Text>
+                <View style={styles.backupdesc}>
+                  <Text style={{ fontSize: 12 }}>
+                    Restore backed up data. Restored data will be added without
+                    losing the existing one.
+                  </Text>
+                </View>
+                <Text style={{ marginVertical: 10 }}>
+                  Last restore: {lastrestore}
+                </Text>
+                <Uploadbutton setdoing={setdoing} getuser={getuser} />
+              </View>
             </View>
           </View>
         ) : (
-          <Login setshow={setauth}/>
+          <Login setshow={setauth} />
         )}
       </View>
     );
@@ -104,17 +166,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#d5def5",
     flex: 1,
   },
-  buttoncontainer: {
-    margin: 50,
-    height: 400,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   greet: {
-    textAlign: "center",
-    marginTop: 100,
-    fontSize: 25,
+    textAlign: "right",
+    marginRight: 20,
+    fontSize: 20,
     fontWeight: "bold",
     textTransform: "capitalize",
+    marginVertical: 10,
+  },
+  uppercontainer: {
+    height: (height - 60) / 2,
+  },
+  afterheader: {
+    height: "100%",
+    marginTop: 60,
+  },
+  backupdesc: {
+    width: 180,
+    marginVertical: 10,
   },
 });
