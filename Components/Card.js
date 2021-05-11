@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
-import { Entypo } from "@expo/vector-icons";
 
 export default function Card(props) {
   const onpress = () => {
@@ -14,7 +13,6 @@ export default function Card(props) {
     >
       <View style={styles.total}>
         <View style={styles.iconview}>
-          {/* <Entypo name="aircraft-take-off" size={50} color="#5f38ab" /> */}
           <Image source={require("../assets/icon.png")} style={{width: 60, height: 100}} />
         </View>
         <View style={styles.titleview}>

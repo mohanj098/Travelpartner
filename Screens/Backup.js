@@ -43,27 +43,34 @@ export default function Backup({ navigation }) {
   const [user, setuser] = useState("");
   const [load, setload] = useState(true);
   const [doing, setdoing] = useState(false);
-  const [lastbackup, setlastback] = useState("never");
+  const [lastbackup, setlastbackup] = useState("never");
   const [lastrestore, setlastrestore] = useState("never");
   const getuser = async () => {
-    setload(true);
-    const username = await GetData("username");
-    const last = await GetData("lastbackup");
-    const lastre = await GetData("lastrestore");
-    if (!username) {
-      setauth(false);
+    try {
+      setload(true);
+      const username = await GetData("username");
+      const last = await GetData("lastbackup");
+      const lastre = await GetData("lastrestore");
+      if (!username) {
+        setauth(false);
+      } else {
+        const name = JSON.parse(username);
+        setuser(name);
+      }
+      if (last) {
+        const lastback = JSON.parse(last);
+        setlastbackup(lastback);
+      }
+      if (lastre) {
+        const lastres = JSON.parse(lastre);
+        setlastrestore(lastres);
+      }
+      setload(false);
+    } catch (e) {
+      console.log(e);
+      setload(false);
+      alert("something went wrong");
     }
-    if (last) {
-      const lastback = JSON.parse(last);
-      setlastback(lastback);
-    }
-    if (lastre) {
-      const lastres = JSON.parse(lastre);
-      setlastrestore(lastres);
-    }
-    const name = JSON.parse(username);
-    setuser(name);
-    setload(false);
   };
   useEffect(() => {
     getuser();
@@ -124,7 +131,10 @@ export default function Backup({ navigation }) {
                   <Text style={{ marginVertical: 10 }}>
                     Last backup: {lastbackup}
                   </Text>
-                  <Backupbutton setdoing={setdoing} getuser={getuser} />
+                  <Backupbutton
+                    setdoing={setdoing}
+                    setlastbackup={setlastbackup}
+                  />
                 </View>
               </View>
             </View>
@@ -149,12 +159,16 @@ export default function Backup({ navigation }) {
                 <Text style={{ marginVertical: 10 }}>
                   Last restore: {lastrestore}
                 </Text>
-                <Uploadbutton setdoing={setdoing} getuser={getuser} />
+                <Uploadbutton
+                  setdoing={setdoing}
+                  setlastrestore={setlastrestore}
+                  setauth={setauth}
+                />
               </View>
             </View>
           </View>
         ) : (
-          <Login setshow={setauth} />
+          <Login setuser={setuser} setauth={setauth}/>
         )}
       </View>
     );

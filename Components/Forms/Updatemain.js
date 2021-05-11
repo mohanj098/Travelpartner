@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextInput, View, Button, Dimensions } from "react-nat
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Addmain from "../../db/Addmain";
 import { TextInputMask } from "react-native-masked-text";
 import GetData from "../../db/GetData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -323,7 +322,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     opacity: 0.8,
-    height: height,
     width: "100%",
     justifyContent: "center"
   
@@ -334,6 +332,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   mainformform: {
+    backgroundColor : "#d5def5",
     marginTop: 5,
     width: "90%",
     borderWidth: 1,
@@ -346,7 +345,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     shadowRadius: 3,
     borderRadius: 5,
-    height: 30,
+    height: 35,
     textAlign: "left",
     paddingLeft: 5,
     fontSize: 15,

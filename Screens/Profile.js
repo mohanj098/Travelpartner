@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  t,
   Modal,
   StatusBar,
 } from "react-native";

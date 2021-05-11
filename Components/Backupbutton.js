@@ -26,7 +26,7 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
-async function backup() {
+async function backup(setlastbackup) {
   try {
     const trip = await GetData("trip");
     const res = JSON.parse(trip);
@@ -48,25 +48,25 @@ async function backup() {
       dateobject.getHours() +
       ":" +
       dateobject.getMinutes();
+    setlastbackup(date);
     const lastbackup = JSON.stringify(date);
     await StoreData("lastbackup", lastbackup);
-    alert("done");
+    alert("Backup done");
   } catch (e){
     console.log(e);
     alert("something went wrong");
   }
 }
 
-export default function BackupButton({ setdoing, getuser }) {
+export default function BackupButton({ setdoing, setlastbackup }) {
   return (
     <TouchableOpacity
       style={styles.backupcontainer}
       activeOpacity={0.5}
       onPress={() => {
         setdoing(true);
-        backup()
+        backup(setlastbackup)
           .then(() => {
-            getuser();
             setdoing(false);
           })
           .catch(setdoing(false));

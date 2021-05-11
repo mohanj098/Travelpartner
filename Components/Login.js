@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Dimensions,
   Image,
@@ -16,18 +16,12 @@ WebBrowser.maybeCompleteAuthSession();
 
 const { width, height } = Dimensions.get("window");
 
-export default function Login({ setshow }) {
+export default function Login({ setauth, setuser }) {
   initAsync = async () => {
-    try {
-      await GoogleSignIn.initAsync({
-        clientId: ANDROID_CLIENT_ID,
-        webClientId: WEB_CLIENT_ID,
-      });
-      _syncUserWithStateAsync();
-    } catch ({ message }) {
-      console.log(message);
-      alert("error");
-    }
+    await GoogleSignIn.initAsync({
+      clientId: ANDROID_CLIENT_ID,
+      webClientId: WEB_CLIENT_ID,
+    });
   };
 
   _syncUserWithStateAsync = async () => {
@@ -44,7 +38,10 @@ export default function Login({ setshow }) {
       .then((response) => response.json())
       .then((data) => {
         StoreData("username", data.given_name).then(
-          StoreData("useremail", data.email).then(setshow(true))
+          StoreData("useremail", data.email).then(()=>{
+            setuser(data.given_name);
+            setauth(true);
+          })
         );
       })
       .catch((e) => console.log(e));
@@ -55,20 +52,20 @@ export default function Login({ setshow }) {
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === "success") {
-        alert("ok");
         _syncUserWithStateAsync();
       }
     } catch ({ message }) {
-      alert("login error");
+      alert("failed in signin");
+      console.log(message);
     }
   };
-  React.useEffect(() => {
+  useEffect(() => {
     initAsync();
   }, []);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => signInAsync().then(setshow(true))} activeOpacity={0.8}>
+      <TouchableOpacity onPress={() => signInAsync()} activeOpacity={0.8}>
         <Image
           style={styles.googlelogo}
           source={require("../assets/google.png")}

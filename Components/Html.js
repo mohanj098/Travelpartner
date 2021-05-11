@@ -1,5 +1,3 @@
-import React from "react";
-
 const htmlContent = (main, other, user, data) => {
   return `
   

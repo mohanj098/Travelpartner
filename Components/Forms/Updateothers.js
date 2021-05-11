@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
 
   },
   otherform: {
+    backgroundColor : "#d5def5",
     width: "80%",
     borderRadius: 20,
     borderWidth: 1,
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 5,
-    height: 35,
+    height: 40,
     textAlign: "left",
     justifyContent: "center",
     fontSize: 15,

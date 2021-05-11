@@ -12,7 +12,6 @@ import {
 import {
   Table,
   Row,
-  Rows,
   TableWrapper,
   Cell,
 } from "react-native-table-component";

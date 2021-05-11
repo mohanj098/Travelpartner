@@ -1,5 +1,3 @@
-import React from "react";
-
 const Othertablehtml = (data) => {
   const other = data.other;
   var tablebody = "";
