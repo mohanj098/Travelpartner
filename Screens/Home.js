@@ -34,16 +34,16 @@ export default function Home() {
       drawerContentOptions={{
         activeTintColor: "#5f38ab",
         activeBackgroundColor: "#fad9f3",
-        itemStyle: { marginVertical: 5 },
+        itemStyle: { marginVertical: 0 },
         labelStyle:{fontWeight: "bold", fontSize: 20,}
       }}
       drawerStyle={{
-        backgroundColor: "#d5def5",
+        backgroundColor: "white",
       }}
     >
       <Drawer.Screen name="Home" component={Main} />
       <Drawer.Screen name="Profile" component={Profile} />
-      <Drawer.Screen name="Backup and Restore" component={Backup} />
+      <Drawer.Screen name="Backup & Restore" component={Backup} />
     </Drawer.Navigator>
   );
 }
