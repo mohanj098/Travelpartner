@@ -16,7 +16,7 @@ export default function Card(props) {
           <Image source={require("../assets/icon.png")} style={{width: 60, height: 100}} />
         </View>
         <View style={styles.titleview}>
-          <Text style={styles.title} numberOfLines={2}>
+          <Text style={styles.title} numberOfLines={1}>
             {props.title}
           </Text>
           <View style={styles.price}>
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   title: {
-    maxHeight: 100,
     fontSize: 30,
     color: "black",
     textTransform: "capitalize",

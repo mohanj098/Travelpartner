@@ -30,7 +30,7 @@ const Reviewschema = yup.object({
     .typeError("Must be a Number"),
 });
 
-const {width, height} = Dimensions.get('window')
+const { width, height } = Dimensions.get("window");
 
 export default function User(props) {
   const [data, setdata] = useState([]);
@@ -43,7 +43,7 @@ export default function User(props) {
         setload(false);
       })
       .catch((e) => console.log(e));
-  }, [load]);
+  }, []);
   const [namea, setnamea] = useState(false);
   const [codea, setcodea] = useState(false);
   const [desa, setdesa] = useState(false);
@@ -55,7 +55,6 @@ export default function User(props) {
     return (
       <View
         style={{
-          backgroundColor: "#d5def5",
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
@@ -91,7 +90,10 @@ export default function User(props) {
                 pay: values.pay.trim(),
                 account: values.account.trim(),
               };
-              StoreData("user", finalvalues).then(props.setshow(false));
+              StoreData("user", finalvalues).then(() => {
+                props.setshow(false);
+                props.setupdate(!(props.update))
+              });
             }}
             validationSchema={Reviewschema}
           >
@@ -285,7 +287,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     backgroundColor: "#f0f3fa",
-    marginVertical: (height-600)/2
+    marginVertical: (height - 600) / 2,
   },
   usertop: {
     fontSize: 20,
