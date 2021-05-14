@@ -1,17 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Getdata from "../db/GetData";
-import Mainform from "../Components/Forms/Mainform";
-import Otherform from "../Components/Forms/Others";
-import Middle from "../Components/Mediator";
-import { Modal, StyleSheet, View, ActivityIndicator, StatusBar } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TravelTab from "../Components/TravelTab";
+import OtherTab from "../Components/OtherTab";
+
+const Tab = createBottomTabNavigator();
 
 export default function Mediator({ navigation, route }) {
   const { index } = route.params;
   const [load, setload] = useState(true);
   const [renderdata, setrender] = useState(null);
-  const [showmain, setshowmain] = useState(false);
-  const [showother, setshowother] = useState(false);
   const [extra, setextra] = useState(false);
 
   useEffect(() => {
@@ -30,38 +30,60 @@ export default function Mediator({ navigation, route }) {
 
   if (!load) {
     return (
-      <View>
-        <Modal
-          visible={showmain}
-          animationType="slide"
-          transparent={false}
-          onRequestClose={() => setshowmain(false)}
-        >
-          <View style={styles.modal}>
-            <Mainform showmain={setshowmain} index={index} extra={extra} setextra={setextra}/>
-          </View>
-        </Modal>
-        <Modal
-          visible={showother}
-          animationType="slide"
-          transparent={false}
-          onRequestClose={() => setshowother(false)}
-        >
-          <View style={styles.modal}>
-            <Otherform showother={setshowother} index={index} extra={extra} setextra={setextra}/>
-          </View>
-        </Modal>
-        <Middle
-          data={renderdata}
-          showmain={setshowmain}
-          showother={setshowother}
-          index={index}
-          setextra={setextra}
-          extra={extra}
-          navigation={navigation}
-        />
-        <StatusBar style={{backgroundColor: "#7242cf"}} />
-      </View>
+      <Tab.Navigator
+        backBehavior="none"
+        tabBarOptions={{
+          width: "100%",
+          activeTintColor: "#5f38ab",
+          inactiveTintColor: "black",
+          activeBackgroundColor: "#fad9f3",
+          inactiveBackgroundColor: "white",
+          style: {
+            backgroundColor: "#d5def5",
+          },
+          labelStyle: {
+            fontWeight: "bold",
+            fontSize: 20,
+            width: "100%",
+            height: "100%",
+          },
+        }}
+      >
+        <Tab.Screen name="Travel Expense">
+          {() => {
+            return (
+              <TravelTab
+                data={renderdata}
+                index={index}
+                setextra={setextra}
+                extra={extra}
+                navigation={navigation}
+              />
+            );
+          }}
+        </Tab.Screen>
+        <Tab.Screen name="Other Expense">
+          {() => {
+            return (
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <OtherTab
+                  data={renderdata}
+                  index={index}
+                  setextra={setextra}
+                  extra={extra}
+                  navigation={navigation}
+                />
+              </View>
+            );
+          }}
+        </Tab.Screen>
+      </Tab.Navigator>
     );
   } else {
     return (

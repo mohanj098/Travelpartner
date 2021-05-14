@@ -158,7 +158,7 @@ export default function Maintable({ data, index, extra, setextra }) {
       </ScrollView>
       <View style={styles.maintotal}>
         <Text style={{fontSize: 15, color: "red"}}>Total Travelling Expense:</Text>
-        <Text style={{fontSize: 15, color: "green", marginLeft: 5}}>{data.maintotal}</Text>
+        <Text style={{fontSize: 15, color: "green", marginLeft: 5}}>{data.maintotal} ₹</Text>
       </View>
     </View>
   );

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import { View, StyleSheet, Dimensions, Modal } from "react-native";
-import Action from "./Action";
 import Othertable from "./Othertable.js";
 import { ScrollView } from "react-native-gesture-handler";
-import Maintable from "./Maintable";
 import Print from "./Print";
 import Confirmation from "./Confirmation";
+import { MaterialIcons } from "@expo/vector-icons";
+import ActionButton from "react-native-action-button";
+import Otherform from "../Components/Forms/Others"
 
-export default function Mediate({
-  showmain,
-  showother,
+export default function OtherTab({
   data,
   index,
   extra,
@@ -18,6 +17,7 @@ export default function Mediate({
   navigation,
 }) {
   useEffect(() => {}, []);
+  const [showother, setshowother] = useState(false);
   const { width, height } = Dimensions.get("window");
   const [showdelete, setshowdelete] = useState(false);
   return (
@@ -38,21 +38,26 @@ export default function Mediate({
           navigation={navigation}
         />
       </Modal>
+      <Modal
+        visible={showother}
+        onRequestClose={() => {
+          setshowother(false);
+        }}
+      >
+        <Otherform
+          showother={setshowother}
+          index={index}
+          extra={extra}
+          setextra={setextra}
+        />
+      </Modal>
       <ScrollView
-        style={{ flex: 1, marginTop: 15}}
+        style={{ flex: 1, marginTop: 15 }}
         horizontal={true}
         scrollEventThrottle={16}
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={{ width, height }}>
-          <Maintable
-            data={data}
-            index={index}
-            extra={extra}
-            setextra={setextra}
-          />
-        </View>
         <View style={{ width, height }}>
           <Othertable
             data={data}
@@ -63,7 +68,16 @@ export default function Mediate({
         </View>
       </ScrollView>
       <Print data={data} setshowdelete={setshowdelete} />
-      <Action showmain={showmain} showother={showother} />
+      <ActionButton
+        size={60}
+        buttonColor="#5f38ab"
+        renderIcon={() => {
+          return <MaterialIcons name="add" size={30} color="white" />;
+        }}
+        onPress={() => {
+          setshowother(true);
+        }}
+      />
     </View>
   );
 }

@@ -129,7 +129,7 @@ export default function Othertable({ data, index, extra, setextra }) {
       </ScrollView>
       <View style={styles.maintotal}>
         <Text style={{fontSize: 15, color: "red"}}>Total Other Expense:</Text>
-        <Text style={{fontSize: 15, color: "green", marginLeft: 5}}>{data.othertotal}</Text>
+        <Text style={{fontSize: 15, color: "green", marginLeft: 5}}>{data.othertotal} ₹</Text>
       </View>
     </View>
   );
@@ -137,7 +137,7 @@ export default function Othertable({ data, index, extra, setextra }) {
 
 const styles = StyleSheet.create({
   othertablecontainer: {
-    marginTop: 55,
+    marginTop: 45,
     borderColor: "grey",
     height: "70%",
   },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   editbutton: {
-    margin: 1,
+    margin: 0,
     justifyContent: "center",
     alignItems: "center",
   },
