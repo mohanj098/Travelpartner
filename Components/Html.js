@@ -166,7 +166,6 @@ const htmlContent = (main, other, user, data) => {
           </ul>
       </div>
       <div style="display: flex; justify-content: flex-end;width: 95%; margin-top:80px;">
-          <h3>Total Amount to be reimbursed: ${data.total} </h3>
           <p>Signature of the claimant with date</p>
       </div>
       <div>
