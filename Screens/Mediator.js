@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Getdata from "../db/GetData";
 import { StyleSheet, View, ActivityIndicator } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TravelTab from "../Components/TravelTab";
 import OtherTab from "../Components/OtherTab";
 

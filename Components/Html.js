@@ -130,7 +130,7 @@ const htmlContent = (main, other, user, data) => {
                 ${main}
               </tbody>
           </table>
-          <h3>Total Travel Expense: ${data.maintotal}</h3>
+          <h3>Total Travel Expense: ${data.maintotal} ₹</h3>
       </div>
       <div style="margin-top:100px">
           <p id="heading">OTHER EXPENSES</p>
@@ -150,7 +150,7 @@ const htmlContent = (main, other, user, data) => {
                     ${other}
               </tbody>
           </table>
-          <h3>Total Other Expense: ${data.othertotal}</h3>
+          <h3>Total Other Expense: ${data.othertotal} ₹</h3>
       </div>
       <div style="margin-top:80px">
           <h4>Certified that</h4>
@@ -169,7 +169,7 @@ const htmlContent = (main, other, user, data) => {
           <p>Signature of the claimant with date</p>
       </div>
       <div>
-          <h3>Total Amount to be reimbursed: ${data.total} </h3>
+          <h3>Total Amount to be reimbursed: ${data.total} ₹ </h3>
           <p>No. of enclosures: __________________________________________</p>
           <p>Journey verified and forwarded </p>
           <br/><br/>

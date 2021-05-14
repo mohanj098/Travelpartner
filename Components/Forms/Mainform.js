@@ -335,10 +335,10 @@ const styles = StyleSheet.create({
   },
   mainforminput: {
     borderColor: "black",
-    borderWidth: 1,
+    borderBottomWidth: 1,
     shadowRadius: 3,
     borderRadius: 5,
-    height: 35,
+    height: 40,
     textAlign: "left",
     paddingLeft: 5,
     fontSize: 15,

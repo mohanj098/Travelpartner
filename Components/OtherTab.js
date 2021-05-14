@@ -52,7 +52,7 @@ export default function OtherTab({
         />
       </Modal>
       <ScrollView
-        style={{ flex: 1, marginTop: 15 }}
+        style={{ flex: 1, marginTop: 5 }}
         horizontal={true}
         scrollEventThrottle={16}
         pagingEnabled={true}

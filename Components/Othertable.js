@@ -137,7 +137,7 @@ export default function Othertable({ data, index, extra, setextra }) {
 
 const styles = StyleSheet.create({
   othertablecontainer: {
-    marginTop: 45,
+    marginTop: 55,
     borderColor: "grey",
     height: "70%",
   },

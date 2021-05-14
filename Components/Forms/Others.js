@@ -195,8 +195,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     opacity: 0.8,
-    borderWidth: 1,
-    height: height,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -206,16 +204,14 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   otherform: {
-    backgroundColor : "#d5def5",
     marginTop: 10,
-    width: "80%",
-    borderWidth: 1,
+    width: "100%",
     padding: 10,
     borderRadius: 20,
   },
   otherinput: {
     borderColor: "black",
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderRadius: 5,
     height: 40,
     textAlign: "left",
@@ -225,7 +221,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   otherinputactive: {
-    borderWidth: 2,
+    borderBottomWidth: 2,
     borderRadius: 5,
     height: 35,
     textAlign: "left",

@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
   },
   mainforminput: {
     borderColor: "black",
-    borderWidth: 1,
+    borderBottomWidth: 1,
     shadowRadius: 3,
     borderRadius: 5,
     height: 35,

@@ -62,7 +62,7 @@ export default function Maintable({ data, index, extra, setextra }) {
     );
   };
   const [rowdata, setrowdata] = useState([]);
-  const widtharr = [55, 42, 40, 50, 24, 35, 48, 45, 32];
+  const widtharr = [55, 46, 40, 50, 24, 35, 48, 45, 28];
   useEffect(() => {
     let rowdata0 = [];
     const main = data.main;
@@ -136,7 +136,7 @@ export default function Maintable({ data, index, extra, setextra }) {
         >
           <Row
             data={tablehead}
-            widthArr={[55, 42, 40, 50, 24, 35, 48, 45, 32]}
+            widthArr={widtharr}
             height={55}
             textStyle={styles.otherheadtext}
           />
@@ -149,7 +149,7 @@ export default function Maintable({ data, index, extra, setextra }) {
                   data={
                     cellindex == 8 ? editbutton(celldata, index1) : celldata
                   }
-                  textStyle={styles.othertext}
+                  textStyle={cellindex==0 || cellindex==1 ? styles.deparr:styles.othertext}
                 />
               ))}
             </TableWrapper>
@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
   },
   othertext: {
     textAlign: "center",
+    fontSize: 12,
     fontWeight: "300",
   },
   othertabletop: {
@@ -205,4 +206,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "white",
   },
+  deparr:{
+    fontSize: 8,
+    textAlign: "center",
+    fontWeight: "bold",
+  }
 });
