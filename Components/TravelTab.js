@@ -43,15 +43,17 @@ export default function TravelTab({
           setshowmain(false);
         }}
       >
-        <Mainform
-          showmain={setshowmain}
-          index={index}
-          extra={extra}
-          setextra={setextra}
-        />
+        <View style={{ height: "100%", backgroundColor: "#d5def5" }}>
+          <Mainform
+            showmain={setshowmain}
+            index={index}
+            extra={extra}
+            setextra={setextra}
+          />
+        </View>
       </Modal>
       <ScrollView
-        style={{ flex: 1, marginTop: 5}}
+        style={{ flex: 1, marginTop: 5 }}
         horizontal={true}
         scrollEventThrottle={16}
         pagingEnabled={true}
