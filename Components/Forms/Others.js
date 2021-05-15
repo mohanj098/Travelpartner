@@ -112,6 +112,7 @@ export default function Others(props) {
                     setFieldTouched("amountpaid", true);
                     setpaida(false);
                   }}
+                  keyboardType="numeric"
                   onFocus={() => {
                     setpaida(true);
                   }}

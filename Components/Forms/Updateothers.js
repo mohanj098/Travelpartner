@@ -119,6 +119,7 @@ export default function Others(props) {
                       : styles.otherinput
                   }
                   placeholder="Amountpaid"
+                  keyboardType="numeric"
                   onChangeText={handleChange("amountpaid")}
                   value={values.amountpaid}
                   onBlur={() => {

@@ -127,6 +127,7 @@ export default function Mainform(props) {
                       options={{
                         format: "DD/MM/YYYY",
                       }}
+                      keyboardType="numeric"
                       value={values.departuredate}
                       onChangeText={handleChange("departuredate")}
                     />
@@ -148,6 +149,7 @@ export default function Mainform(props) {
                         format: "HH:MM",
                       }}
                       value={values.departuretime}
+                      keyboardType="numeric"
                       onChangeText={handleChange("departuretime")}
                     />
                   </View>
@@ -185,6 +187,7 @@ export default function Mainform(props) {
                       style={styles.mainforminputdeparr}
                       placeholder="DD/MM/YYYY"
                       type={"datetime"}
+                      keyboardType="numeric"
                       options={{
                         format: "DD/MM/YYYY",
                       }}
@@ -205,6 +208,7 @@ export default function Mainform(props) {
                       style={styles.mainforminputdeparr}
                       placeholder="HH::MM"
                       type={"datetime"}
+                      keyboardType="numeric"
                       options={{
                         format: "HH:MM",
                       }}
@@ -255,6 +259,7 @@ export default function Mainform(props) {
                   <TextInput
                     style={styles.mainforminput1}
                     placeholder="Distance(in km)"
+                    keyboardType="numeric"
                     onChangeText={handleChange("distance")}
                     onBlur={handleBlur("distance")}
                     value={values.distance}
@@ -270,6 +275,7 @@ export default function Mainform(props) {
                   <Text style={{ color: "red" }}>*</Text>
                 </View>
                 <TextInput
+                  keyboardType="numeric"
                   style={styles.mainforminput}
                   placeholder="Fare"
                   onChangeText={handleChange("fare")}
