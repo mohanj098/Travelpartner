@@ -174,4 +174,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  modal: {
+    height: "100%",
+    backgroundColor: "#d5def5"
+  }
 });

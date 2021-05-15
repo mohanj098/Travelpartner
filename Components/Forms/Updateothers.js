@@ -218,32 +218,27 @@ export default function Others(props) {
 
 const styles = StyleSheet.create({
   othercontainer: {
+    backgroundColor: "#d5def5",
+    marginTop: 20,
     textAlign: "center",
     flex: 1,
-    backgroundColor: "#fff",
+    opacity: 1,
     alignItems: "center",
-    opacity: 0.8,
-    width: "100%",
-    height: height,
     justifyContent: "center",
   },
   othertop: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: "bold",
     textTransform: "uppercase",
-    marginBottom: 5,
-
   },
   otherform: {
-    backgroundColor : "#d5def5",
-    width: "80%",
-    borderRadius: 20,
-    borderWidth: 1,
+    marginTop: 10,
+    width: "100%",
     padding: 10,
   },
   otherinput: {
     borderColor: "black",
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderRadius: 5,
     height: 40,
     textAlign: "left",
@@ -253,7 +248,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   otherinputactive: {
-    borderWidth: 2,
+    borderBottomWidth: 2,
     borderRadius: 5,
     height: 35,
     textAlign: "left",
@@ -275,9 +270,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#129620",
-    height: 35,
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
+    fontSize: 20,
+    width: "80%",
+    marginHorizontal: "10%"
   },
 });
