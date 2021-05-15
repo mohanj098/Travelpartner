@@ -23,7 +23,7 @@ const Reviewschema = yup.object({
     .typeError("Must be a Number")
     .positive("Invalid, Only positive numbers are allowed")
     .required("Distance is required"),
-  fare: yup.string().required("Fare is required"),
+  fare: yup.number().required("Fare is required").typeError("Must be a Number"),
   pnr: yup.string().required("PNR is required"),
   remarks: yup.string(),
 });
