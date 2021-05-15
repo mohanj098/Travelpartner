@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, Button, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+  Dimensions,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -21,28 +28,28 @@ const Reviewschema = yup.object({
   remarks: yup.string(),
 });
 
-const {width, height} = Dimensions.get("window")
+const { width, height } = Dimensions.get("window");
 export default function Mainform(props) {
-  const data=props.data;
-  const index=props.index;
-  const extra=props.extra;
-  const departuredata=data[0].split("\n", 3);
-  const arrivaldata=data[1].split("\n", 3);
-  const setextra=props.setextra;
-  const subindex=props.subindex;
-  const setupdate=props.setupdate;
+  const data = props.data;
+  const index = props.index;
+  const extra = props.extra;
+  const departuredata = data[0].split("\n", 3);
+  const arrivaldata = data[1].split("\n", 3);
+  const setextra = props.setextra;
+  const subindex = props.subindex;
+  const setupdate = props.setupdate;
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.mainformcontainer}>
         <Text style={styles.mainformtop}>Travel Expense</Text>
         <Formik
           initialValues={{
-            departuredate: departuredata[0].split('{', 2)[1].split('}', 2)[0],
-            departuretime: departuredata[1].split('{', 2)[1].split('}', 2)[0],
-            departureplace: departuredata[2].split('{', 2)[1].split('}', 2)[0],
-            arrivaldate: arrivaldata[0].split('{', 2)[1].split('}', 2)[0],
-            arrivaltime: arrivaldata[1].split('{', 2)[1].split('}', 2)[0],
-            arrivalplace: arrivaldata[2].split('{', 2)[1].split('}', 2)[0],
+            departuredate: departuredata[0].split("{", 2)[1].split("}", 2)[0],
+            departuretime: departuredata[1].split("{", 2)[1].split("}", 2)[0],
+            departureplace: departuredata[2].split("{", 2)[1].split("}", 2)[0],
+            arrivaldate: arrivaldata[0].split("{", 2)[1].split("}", 2)[0],
+            arrivaltime: arrivaldata[1].split("{", 2)[1].split("}", 2)[0],
+            arrivalplace: arrivaldata[2].split("{", 2)[1].split("}", 2)[0],
             mode: data[2],
             distance: data[3],
             fare: data[4],
@@ -72,18 +79,23 @@ export default function Mainform(props) {
             GetData("trip")
               .then((value) => JSON.parse(value))
               .then((result) => {
-                var value=result;
-                value[index].maintotal+=(parseInt(finalvalue.fare) - parseInt(data[4]));
-                value[index].total+=(parseInt(finalvalue.fare) - parseInt(data[4]));
-                value[index].main[subindex]=finalvalue;
-                AsyncStorage.setItem('trip', JSON.stringify(value)).then(()=>{setextra(!extra); setupdate([false, null, null])})
-                .catch(e=>console.log(e));
+                var value = result;
+                value[index].maintotal +=
+                  parseInt(finalvalue.fare) - parseInt(data[4]);
+                value[index].total +=
+                  parseInt(finalvalue.fare) - parseInt(data[4]);
+                value[index].main[subindex] = finalvalue;
+                AsyncStorage.setItem("trip", JSON.stringify(value))
+                  .then(() => {
+                    setextra(!extra);
+                    setupdate([false, null, null]);
+                  })
+                  .catch((e) => console.log(e));
               })
               .catch((e) => console.log(e))
               .catch((e) => {
                 console.log(e);
               });
-            
           }}
           validationSchema={Reviewschema}
         >
@@ -218,37 +230,39 @@ export default function Mainform(props) {
                   {touched.arrivalplace && errors.arrivalplace}
                 </Text>
               </View>
-              <View style={styles.block}>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.info}>Mode of Travel</Text>
-                  <Text style={{ color: "red" }}>*</Text>
+              <View style={{ flexDirection: "row" }}>
+                <View style={styles.specialblock}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.info}>Mode of Travel</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
+                  <TextInput
+                    style={styles.mainforminput1}
+                    placeholder="Mode of Travel"
+                    onChangeText={handleChange("mode")}
+                    onBlur={handleBlur("mode")}
+                    value={values.mode}
+                  />
+                  <Text style={styles.mainforerror}>
+                    {touched.mode && errors.mode}
+                  </Text>
                 </View>
-                <TextInput
-                  style={styles.mainforminput}
-                  placeholder="Mode of Travel"
-                  onChangeText={handleChange("mode")}
-                  onBlur={handleBlur("mode")}
-                  value={values.mode}
-                />
-                <Text style={styles.mainforerror}>
-                  {touched.mode && errors.mode}
-                </Text>
-              </View>
-              <View style={styles.block}>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.info}>Distance(in km)</Text>
-                  <Text style={{ color: "red" }}>*</Text>
+                <View style={styles.specialblock}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.info}>Distance(in km)</Text>
+                    <Text style={{ color: "red" }}>*</Text>
+                  </View>
+                  <TextInput
+                    style={styles.mainforminput1}
+                    placeholder="Distance(in km)"
+                    onChangeText={handleChange("distance")}
+                    onBlur={handleBlur("distance")}
+                    value={values.distance}
+                  />
+                  <Text style={styles.mainforerror}>
+                    {touched.distance && errors.distance}
+                  </Text>
                 </View>
-                <TextInput
-                  style={styles.mainforminput}
-                  placeholder="Distance(in km)"
-                  onChangeText={handleChange("distance")}
-                  onBlur={handleBlur("distance")}
-                  value={values.distance}
-                />
-                <Text style={styles.mainforerror}>
-                  {touched.distance && errors.distance}
-                </Text>
               </View>
               <View style={styles.block}>
                 <View style={{ flexDirection: "row" }}>
@@ -307,7 +321,7 @@ export default function Mainform(props) {
                   {touched.remarks && errors.remarks}
                 </Text>
               </View>
-              <Button onPress={handleSubmit} title="Submit" color="#129620"/>
+              <Button onPress={handleSubmit} title="Submit" color="#129620" />
             </View>
           )}
         </Formik>
@@ -319,36 +333,48 @@ const styles = StyleSheet.create({
   mainformcontainer: {
     textAlign: "center",
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#d5def5",
     alignItems: "center",
-    opacity: 0.8,
+    marginTop: 20,
+    opacity: 1,
     width: "100%",
-    justifyContent: "center"
-  
+    alignItems: "center",
+    justifyContent: "center",
   },
   mainformtop: {
-    fontSize: 15,
+    fontSize: 25,
+    margin: 5,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   mainformform: {
-    backgroundColor : "#d5def5",
+    backgroundColor: "#d5def5",
     marginTop: 5,
-    width: "90%",
-    borderWidth: 1,
-    borderRadius: 20,
+    width: "100%",
     padding: 10,
-
+    borderRadius: 20,
   },
   mainforminput: {
     borderColor: "black",
     borderBottomWidth: 1,
     shadowRadius: 3,
     borderRadius: 5,
-    height: 35,
+    height: 40,
     textAlign: "left",
     paddingLeft: 5,
     fontSize: 15,
+  },
+
+  mainforminput1: {
+    borderColor: "black",
+    borderBottomWidth: 1,
+    shadowRadius: 3,
+    borderRadius: 5,
+    height: 40,
+    textAlign: "left",
+    paddingLeft: 5,
+    fontSize: 15,
+    width: "90%",
   },
   mainformerror: {
     color: "red",
@@ -376,9 +402,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
-  block: {},
   drblock: {
     width: "30%",
   },
-  drblocktext: {},
+  specialblock: {
+    width: "50%",
+  },
+  button: {
+    backgroundColor: "#129620",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    fontSize: 20,
+    width: "100%",
+  },
 });

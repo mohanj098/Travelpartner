@@ -210,5 +210,9 @@ const styles = StyleSheet.create({
     fontSize: 8,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  modal:{
+    height: "100%",
+    backgroundColor: "#d5def5"
   }
 });
