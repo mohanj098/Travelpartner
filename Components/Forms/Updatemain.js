@@ -6,6 +6,7 @@ import {
   View,
   Button,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
@@ -327,7 +328,17 @@ export default function Mainform(props) {
                   {touched.remarks && errors.remarks}
                 </Text>
               </View>
-              <Button onPress={handleSubmit} title="Submit" color="#129620" />
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleSubmit}
+                activeOpacity={0.8}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+                >
+                  SAVE
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
         </Formik>

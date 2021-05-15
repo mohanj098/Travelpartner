@@ -4,15 +4,14 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   Dimensions,
+  TouchableOpacity
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Addmain from "../../db/Addmain";
 import { TextInputMask } from "react-native-masked-text";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Reviewschema = yup.object({
   departureplace: yup.string().required("Departure Place is Required"),
