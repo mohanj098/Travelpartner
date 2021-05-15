@@ -35,9 +35,8 @@ export default function Mediator({ navigation, route }) {
         tabBarOptions={{
           width: "100%",
           activeTintColor: "#5f38ab",
-          inactiveTintColor: "black",
-          activeBackgroundColor: "#fad9f3",
-          inactiveBackgroundColor: "white",
+          activeBackgroundColor: "#d5def5",
+          inactiveBackgroundColor: "#d5def5",
           style: {
             backgroundColor: "#d5def5",
           },

@@ -7,15 +7,9 @@ import Print from "./Print";
 import Confirmation from "./Confirmation";
 import { MaterialIcons } from "@expo/vector-icons";
 import ActionButton from "react-native-action-button";
-import Otherform from "../Components/Forms/Others"
+import Otherform from "../Components/Forms/Others";
 
-export default function OtherTab({
-  data,
-  index,
-  extra,
-  setextra,
-  navigation,
-}) {
+export default function OtherTab({ data, index, extra, setextra, navigation }) {
   useEffect(() => {}, []);
   const [showother, setshowother] = useState(false);
   const { width, height } = Dimensions.get("window");
@@ -44,12 +38,14 @@ export default function OtherTab({
           setshowother(false);
         }}
       >
-        <Otherform
-          showother={setshowother}
-          index={index}
-          extra={extra}
-          setextra={setextra}
-        />
+        <View style={{backgroundColor: "#d5def5", height: "100%"}}>
+          <Otherform
+            showother={setshowother}
+            index={index}
+            extra={extra}
+            setextra={setextra}
+          />
+        </View>
       </Modal>
       <ScrollView
         style={{ flex: 1, marginTop: 5 }}

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -43,7 +50,13 @@ export default function Others(props) {
               payment: values.payment.trim(),
               stored: values.stored.trim(),
             };
-            Addother(finalvalue, props.showother, props.index, props.extra, props.setextra);
+            Addother(
+              finalvalue,
+              props.showother,
+              props.index,
+              props.extra,
+              props.setextra
+            );
           }}
           validationSchema={Reviewschema}
         >
@@ -58,7 +71,7 @@ export default function Others(props) {
           }) => (
             <View style={styles.otherform}>
               <View style={styles.box}>
-                <View style={{flexDirection: "row" }}>
+                <View style={{ flexDirection: "row" }}>
                   <Text style={styles.info}>Details</Text>
                   <Text style={{ color: "red" }}>*</Text>
                 </View>
@@ -179,7 +192,11 @@ export default function Others(props) {
                 onPress={handleSubmit}
                 activeOpacity={0.8}
               >
-                <Text style={{ color: "white" }}>SAVE</Text>
+                <Text
+                  style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+                >
+                  SAVE
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -191,15 +208,16 @@ export default function Others(props) {
 
 const styles = StyleSheet.create({
   othercontainer: {
+    backgroundColor: "#d5def5",
+    marginTop: 20,
     textAlign: "center",
     flex: 1,
-    backgroundColor: "#fff",
-    opacity: 0.8,
-    alignItems: 'center',
-    justifyContent: 'center'
+    opacity: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   othertop: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
@@ -207,7 +225,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: "100%",
     padding: 10,
-    borderRadius: 20,
   },
   otherinput: {
     borderColor: "black",
@@ -243,9 +260,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#129620",
-    height: 35,
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
+    fontSize: 20,
+    width: "80%",
+    marginHorizontal: "10%"
   },
 });
