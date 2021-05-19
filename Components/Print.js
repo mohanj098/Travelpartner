@@ -41,7 +41,7 @@ const Print = ({ data, navigation, setshowdelete }) => {
     >
       <ActionButton.Item
         buttonColor="white"
-        title="Print Trip details"
+        title="Generate Pdf"
         onPress={() => {
           const user = Getdata("user")
             .then((results) => JSON.parse(results))
