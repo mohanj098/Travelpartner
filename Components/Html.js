@@ -8,48 +8,59 @@ const htmlContent = (main, other, user, data) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Pdf Content</title>
       <style>
+          #profile{
+              
+          }
           body {
               font-size: 16px;
               color: rgb(0, 0, 0);
           }
           div {
-              font-size :14px;
-              margin-left: 20px;
+              font-size: 14px;
           }
   
           h1 {
               text-align: center;
           }
           #profilerow{
-              height: 40px;
+              height: 80 px;
               display: flex;
               flex-direction: row;
               align-items: center;
+		 	  width: 50%;
+		 	  margin-left: 40px;
           }
           #profilerowvalue{
               border-bottom: 1px solid black;
-              min-width: 300px;
+              max-width: 230px;
+              min-width: 230px;
               font-size: 15px;
               margin-left: 10px;
+              word-wrap: break-word;
           }
           #heading{
               display:flex;
               align-items: center;
               justify-content: center;
+              margin-bottom: 20px;
           }
           #profilerowlabel{
               font-size: 15px;
               font-weight: 600;
+              
           }
           table {
               border: 1px solid black;
           }
           tr{
-            border: 1px solid black;
+            	border: 1px solid black;
+            	word-wrap: break-word;
           }
           th{
               margin:0px;
               border: 1px solid black;
+              word-wrap: break-word;
+              font-size: 13px;
           }
           td{
               border: 1px solid black;
@@ -57,12 +68,19 @@ const htmlContent = (main, other, user, data) => {
               text-align:center;
               font-size: 15px;
           }
+          #profilerowcommon{
+            	display: flex;
+            	flex-direction: row;
+            	margin-bottom: 20px;
+            	justify-content: flex-start;
+          }
       </style>
   </head>
   <body>
         <h1>INDIAN INSTITUTE OF TECHNOLOGY</h1>
       <p id="heading">TRAVELLING ALLOWANCE REIMBURSEMENT/SETTLEMENT FORM</p>
       <div id="profile">
+      <div id="profilerowcommon">
          <div id="profilerow">
              <p id="profilerowlabel">Name:</p>
              <p id="profilerowvalue" style="text-transform: capitalize">${user.name}</p>
@@ -71,6 +89,8 @@ const htmlContent = (main, other, user, data) => {
              <p id="profilerowlabel">Department:</p>
              <p id="profilerowvalue">${user.dept}</p>
          </div>
+    </div>
+    <div id="profilerowcommon">
          <div id="profilerow">
              <p id="profilerowlabel">Designation:</p>
              <p id="profilerowvalue">${user.desig}</p>
@@ -79,6 +99,8 @@ const htmlContent = (main, other, user, data) => {
              <p id="profilerowlabel">Employee Code:</p>
              <p id="profilerowvalue">${user.ecode}</p>
          </div>
+    </div>
+    <div id="profilerowcommon">
          <div id="profilerow">
              <p id="profilerowlabel">Basic pay:</p>
              <p id="profilerowvalue">${user.pay} ₹</p>
@@ -87,6 +109,7 @@ const htmlContent = (main, other, user, data) => {
              <p id="profilerowlabel">Account number:</p>
              <p id="profilerowvalue">${user.account}</p>
          </div>
+    </div>
       </div>
       <div>
           <p id="heading">TRAVEL EXPENSES</p>
@@ -166,10 +189,12 @@ const htmlContent = (main, other, user, data) => {
           </ul>
       </div>
       <div style="display: flex; justify-content: flex-end;width: 95%; margin-top:80px;">
-          <p>Signature of the claimant with date</p>
+        <div>
+          <h3>Total Amount to be reimbursed: ${data.total} ₹ </h3>
+          <p>Signature of the claimant with date: </p>
+          </div>
       </div>
       <div>
-          <h3>Total Amount to be reimbursed: ${data.total} ₹ </h3>
           <p>No. of enclosures: __________________________________________</p>
           <p>Journey verified and forwarded </p>
           <br/><br/>
@@ -178,6 +203,9 @@ const htmlContent = (main, other, user, data) => {
   </body>
   </html>
   
+
+  
+
 
 `;
 };
