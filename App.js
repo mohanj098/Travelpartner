@@ -9,7 +9,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LogBox } from "react-native";
 import Warning from "./WarningIgnore";
-import Header from "./Components/Header";
 
 LogBox.ignoreLogs(Warning);
 
